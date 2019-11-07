@@ -1,0 +1,23 @@
+{
+    "name": "talianderson-alt/cobrancanet",
+    "description": "Classe para gerar boletos no cobrancanet",
+    "type": "library",  
+    "license":"OSL-3.0",
+    "autors":[
+    	{
+    		"name":"Talianderson Dias",
+    		"email":"tlaianderson.web@gmail.com"
+    	}
+    ],
+    "minimum-stability": "dev",
+    "require": {
+    	"php": "^7.0",
+    	"spipu/html2pdf": "^5.2.0" 
+    },
+    "autoload":{
+    	"psr-4":{
+    		"CobrancaNet\\": "src/",
+    		"CobrancaNet\\Validador\\" :"src/Validador/"
+    	}
+    }
+}
