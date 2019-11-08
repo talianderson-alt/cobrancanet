@@ -2,13 +2,18 @@
 require_once __DIR__ . "/vendor/autoload.php";
 
 use CobrancaNet\CobrancaNet;
+use Spipu\Html2Pdf\Html2Pdf;
 
 session_start();
 $user_id="KLyWAAMuWeUEWLMhpdPWIqDnbkQMUGifShCTiOOFsjJOuWxkzMHIDLwfxNsRTcynJAHsOWyIFHXBeTmehtmlGjRDxKWRmUFxWMplintouRpamcETXqGeaYiYiFpWauSxHJjqxdfswWSizYDWOJBphj";
 	$secret ="ttyuWiXaByTpqxCozIedsIafRtcNPmFJhDFEldenczeSxgHwomZhuANNtpbJdhSKkYOXBtKetoxqUFmKrMrnMGBGxdPaKjlwIBSKueooSmgorSAkfsZszbzwEPXPAILIKeSGJIwcucRnwRZcLyUKaTHekfukoGtzlMFuWBYQdqFZJeBUdXgDqnicTdNIkHHWUMRqNpIrgNRpsSKWprahfJKznYHYfPuAcMqqDAijNAaHTldKdEsJODJCbQ";
 $CobrancaNet = new CobrancaNet( $user_id, $secret);
 $CobrancaNet->set('numeroDocumento', '014164')
-->set('dataVencimentoTitulo', '07.11.2019')
+->set('fk_id_convenio',12)
+->set('fk_id_taxa', 1)
+->set('fk_id_cliente',1)
+->set('codigoConvenio', '3330023NJD')
+->set('dataVencimentoTitulo', '30.11.2019')
 ->set('valorOriginalTitulo', '545.65')
 ->set('codigoTipoInscricaoPagador', '1')
 ->set('nomePagador','ALANA PRISCILLA')
@@ -17,10 +22,7 @@ $CobrancaNet->set('numeroDocumento', '014164')
 ->set('descricaoTitulo', 'CONTA DE INTERNET')
 ->set('codigoTipoDescontoTitulo',0)
 ->set('postarTituloCorreio', 0)
-->set('textoEnderecoPagador','Q 5 ON D')
-->set('fk_id_convenio',2)
-->set('fk_id_taxa', 1)
-->set('fk_id_cliente',1)
+->set('textoEnderecoPagador','Q 5 ON D') 
 ->set('dataCadastroTitulo','01.11.2019')
 ->set('codigoTipoInscricaoAvalista','1')
 ->set('numeroInscricaoAvalista','03734431107')
@@ -43,12 +45,14 @@ $CobrancaNet->set('numeroDocumento', '014164')
 ->set('dataJuroMoraTitulo','21.12.2019')
 ->set('valorJuroMoraTitulo','2.00')
 ->set('percentualJuroMoraTitulo','2.00')
-->set('numeroInscricaoPagador', '037344311072');
+->set('numeroInscricaoPagador', '03734431107');
 
-$CobrancaNet->executar( function( $result ){
-	echo "<pre>";
-	var_dump($result);
+$CobrancaNet->executar(function( $result ){
+ 
+ 
 });
+$CobrancaNet->getPdfDocument(null);
+ 
 
 /*
 if( true ){ 

@@ -212,6 +212,8 @@ class Validador{
 		}
 	}
 
+
+
 	public function dataDescontoTitulo($value){
 
 		if( $value == "D")
@@ -268,6 +270,14 @@ class Validador{
 
 		$this->dadosTitulo['dataDescontoTitulo'] = $dataDescontoTitulo;
 
+		return true;
+	}
+
+	public function codigoConvenio( $value ){
+		if( strlen( trim($value) ) != 10 ){
+			$this->erros['codigoConvenio'][] = "O código de convênio informado é inválido";
+			return false;
+		}
 		return true;
 	}
 
@@ -583,15 +593,15 @@ class Validador{
 	public function validar( $callback ){
 		foreach( $this->_inputValidator as $key => $item ){
 			if( !array_key_exists($key, $this->dadosTitulo) && $item['obrigatorio']){
-				$this->erros[] = sprintf("Campo obrigatório não informado [%s]",
+				$this->erros[$key][] = sprintf("Campo obrigatório não informado [%s]",
 					$key);
 				continue;
 			}
 
-			$value = $this->dadosTitulo[$key];
+			$value = @$this->dadosTitulo[$key];
 			if( $item['obrigatorio'] && trim( $value ) == "")
 			{
-				$this->erros[] = sprintf("Campo obrigatório não pode ficar em branco [%s]",
+				$this->erros[$key][] = sprintf("Campo obrigatório não pode ficar em branco [%s]",
 					$key);
 				continue;
 			}
@@ -630,6 +640,10 @@ class Validador{
 	public function __construct(){
 		$this->_inputValidator  = [
 
+			'codigoConvenio' => [
+				'obrigatorio' => true
+			],
+
 			'valorOriginalTitulo' => [
 				'obrigatorio' => true  
 			],
@@ -651,11 +665,11 @@ class Validador{
 			],
 
 			'numeroCepPagador' => [
-				'obrigatorio' => false 
+				'obrigatorio' => true 
 			],
 
 			'siglaUfPagador' => [
-				'obrigatorio' => false 
+				'obrigatorio' => true 
 			],
 
 			'textoEnderecoPagador' => [

@@ -22,6 +22,7 @@ class CobrancaNet{
  	private $numeroDocumento;
  	private $descricaoTitulo;
  	private $dadosTitulo;
+ 	private $dadosBoleto;
 
  	public function setNumeroDocumento( $val ){
  		$this->numeroDocumento = $val;
@@ -73,7 +74,7 @@ class CobrancaNet{
 		$validator = new Validador();
 		$validator->setDadosTitulo( $this->dadosTitulo );
 	 
-		$validator->validar( function( $result ) use (   $function)  {
+		$validator->validar( function( $result ) use (   $function  )  {
 			 
 			if( $result['type'] == 'success' ){
 				$token = $this->getToken(); 
@@ -97,6 +98,9 @@ class CobrancaNet{
 						$request = json_decode($request);
 
 						if( is_object( $request ) ){
+							if( isset( $request->data )){
+								$this->dadosBoleto = $request->data;
+							}
 							$function( $request);
 						}else{
 							$function( $request );
@@ -117,16 +121,14 @@ class CobrancaNet{
 				}
 			}else{
 				$function( $result );
-			}
+			} 
+		});  
+	}
 
-			
-			/*
-			
+	public function getPdfDocument( $dados ){
 
-			*/
-		});
-
-
+		echo "<pre>";
+		var_dump($this->dadosBoleto);
 	}
 
 
