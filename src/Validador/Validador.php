@@ -29,13 +29,13 @@ class Validador{
 		 	}
 		 	
 		 }catch(\Exception $ex){
-		 	$this->erros[] = $ex->getMessage();
+		 	$this->erros['dataVencimentoTitulo'][] = $ex->getMessage();
 		 	return false;
 		 }
 
 
 		 if( $dataVencimentoTitulo < $dataAtual){
-		 	$this->erros[] = "A data de vencimento do título não pode ser menor que a data atual";
+		 	$this->erros['dataVencimentoTitulo'][] = "A data de vencimento do título não pode ser menor que a data atual";
 		 	return false;
 		 }
 
@@ -45,7 +45,7 @@ class Validador{
 
 	public function codigoTipoInscricaoPagador( $value ){
 		if( !in_array($value, [1,2])) {
-			$this->erros = "Permitido apenas 1 - CPF, ou 2 - CNPJ";
+			$this->erros['codigoTipoInscricaoPagador'][] = "Permitido apenas 1 - CPF, ou 2 - CNPJ";
 			return false;
 		}
 
@@ -57,14 +57,14 @@ class Validador{
 		if( $codigoTipoInscricaoPagador == 1 )
 		{
 			if(!$this->valida_cpf( $value )){
-				$this->erros = "CPF inválido";
+				$this->erros['numeroInscricaoPagador'][] = "CPF inválido";
 				return false;
 			}
 		}
 
 		if( $codigoTipoInscricaoPagador == 2){
 			if(!$this->Utils->valida_cnpj($value)){
-				$this->erros = "CNPJ inválido";
+				$this->erros['numeroInscricaoPagador'][] = "CNPJ inválido";
 				return false;
 			}
 		}
@@ -89,19 +89,19 @@ class Validador{
 				$nomeMunicipioPagador	= "";
 
 				if( !array_key_exists('numeroCepPagador', $this->dadosTitulo )){
-					$this->erros[] = sprintf("Campo obrigatório não informado [numeroCepPagador]"); 
+					$this->erros['postarTituloCorreio'][] = sprintf("Campo obrigatório não informado [numeroCepPagador]"); 
 				}else{
 					$numeroCepPagador 		= $this->dadosTitulo['numeroCepPagador'];
 				}
 
 				if( !array_key_exists('siglaUfPagador', $this->dadosTitulo)){
-					$this->erros[] = sprintf("Campo obrigatório não informado [siglaUfPagador]");
+					$this->erros['postarTituloCorreio'][] = sprintf("Campo obrigatório não informado [siglaUfPagador]");
 				}else{
 					$siglaUfPagador 		= $this->dadosTitulo['siglaUfPagador'];
 				}
 
 				if( !array_key_exists('nomeMunicipioPagador', $this->dadosTitulo)){
-					$this->erros[] = sprintf("Campo obrigatório não informado [nomeMunicipioPagador]");
+					$this->erros['postarTituloCorreio'][] = sprintf("Campo obrigatório não informado [nomeMunicipioPagador]");
 				}else{
 					$nomeMunicipioPagador	= $this->dadosTitulo['nomeMunicipioPagador'];
 				} 
@@ -110,14 +110,14 @@ class Validador{
 			} 
 			return true; 
 		}else{ 
-			$this->erros = "Permitido apenas 1 - sim, ou 0 - não";
+			$this->erros['postarTituloCorreio'][] = "Permitido apenas 1 - sim, ou 0 - não";
 			return false;
 		}
 	}
 
 	public function numeroCepPagador($value){
 		if( strlen($value) != 8 ){
-			$this->erros = "Cep inválido";
+			$this->erros['numeroCepPagador'][] = "Cep inválido";
 			return false;
 		}
 		return true;
@@ -125,7 +125,7 @@ class Validador{
 
 	public function siglaUfPagador($value){
 		if( strlen($value) != 2 ){
-			$this->erros = "Formato inválido";
+			$this->erros['siglaUfPagador'][] = "Formato inválido";
 			return false;
 		}
 
@@ -138,7 +138,7 @@ class Validador{
 
 	public function codigoTipoInscricaoAvalista($value){
 		if(!in_array( $value, [1,2])){
-			$this->erros ="Valores permitidos 1 - CPF, 2 - CNPJ";
+			$this->erros['codigoTipoInscricaoAvalista'][] = "Valores permitidos 1 - CPF, 2 - CNPJ";
 			return false;
 		}
 
@@ -153,12 +153,12 @@ class Validador{
 
 			if( $codigoTipoInscricaoAvalista == 1 ){
 				if( !$this->valida_cpf( $value )){
-					$this->erros[] = "CPF avalista inválido";
+					$this->erros['numeroInscricaoAvalista'][] = "CPF avalista inválido";
 					return false;
 				}
 			}else if( $codigoTipoInscricaoAvalista == 2 ){
 				if( !$this->valida_cnpj($value)){
-					$this->erros[] = "CNPJ avalista inválido";
+					$this->erros['numeroInscricaoAvalista'][] = "CNPJ avalista inválido";
 					return false;
 				}
 			}
@@ -184,7 +184,7 @@ class Validador{
 		);
 
 		if( !array_key_exists($value, $validos )){
-			$this->erros[] = sprintf("[%d] Valor não permitido", $value);
+			$this->erros['codigoTipoTitulo'][] = sprintf("[%d] Valor não permitido", $value);
 			return false;
 		}
 
@@ -197,17 +197,17 @@ class Validador{
 			{
 				// desconto do tipo valor
 				if(!array_key_exists('valorDescontoTitulo', $this->dadosTitulo)){
-					$this->erros[] = sprintf("Campo obrigatório não informado [valorDescontoTitulo]");
+					$this->erros['codigoTipoDescontoTitulo'][] = sprintf("Campo obrigatório não informado [valorDescontoTitulo]");
 				}
 			}else if( $value == 2 ){
 				if(!array_key_exists('percentualDescontoTitulo', $this->dadosTitulo)){
-					$this->erros[] = sprintf("Campo obrigatorio não informado [percentualDescontoTitulo]");
+					$this->erros['codigoTipoDescontoTitulo'][] = sprintf("Campo obrigatorio não informado [percentualDescontoTitulo]");
 				}
 			} 
 
 			return true;
 		}else{
-			$this->erros[] = "Tipo de desconto inválido";
+			$this->erros['codigoTipoDescontoTitulo'][] = "Tipo de desconto inválido";
 			return false;
 		}
 	}
@@ -232,14 +232,14 @@ class Validador{
 			}
 			
 		}catch(\Exception $ex){
-			$this->erros[] = $ex->getMessage();
+			$this->erros['dataDescontoTitulo'][] = $ex->getMessage();
 			return false;
 		}
 
 		$dataAtual = new \DateTime();
 
 		if( $dataDescontoTitulo < $dataAtual ){
-			$this->erros[] = "A data de desconto não pode ser menor que a data atual";
+			$this->erros['dataDescontoTitulo'][] = "A data de desconto não pode ser menor que a data atual";
 			return false;
 		}
 		if(array_key_exists('dataVencimentoTitulo', $this->dadosTitulo)){
@@ -252,17 +252,17 @@ class Validador{
 				}
 				
 			}catch(\Exception $ex){
-				$this->erros[] = "Falha ao comparar data de desconto com a data de vencimento do título. Favor verifique o valor informado no campo [dataVencimentoTitulo]";
+				$this->erros['dataDescontoTitulo'][] = "Falha ao comparar data de desconto com a data de vencimento do título. Favor verifique o valor informado no campo [dataVencimentoTitulo]";
 				return false;
 			}
 
 			if( $dataDescontoTitulo > $dataVencimentoTitulo ){
-				$this->erros[] = "A data do desconto não pode ser maior que a data de vencimento do título";
+				$this->erros['dataDescontoTitulo'][] = "A data do desconto não pode ser maior que a data de vencimento do título";
 				return false;
 			} 
 
 		}else{
-			$this->erros[] = "Falha ao comparar data de desconto com a data de vencimento do título. Favor verifique o valor informado no campo [dataVencimentoTitulo]";
+			$this->erros['dataDescontoTitulo'][] = "Falha ao comparar data de desconto com a data de vencimento do título. Favor verifique o valor informado no campo [dataVencimentoTitulo]";
 			return false;
 		}
 
@@ -280,9 +280,9 @@ class Validador{
 			$valorOriginalTitulo = $this->dadosTitulo['valorOriginalTitulo'];
 
 			if( floatval($value) >= floatval($valorOriginalTitulo) ){
-				$this->erros[] = "O valor do desconto não pode ser maior ou igual o valor do título ";
+				$this->erros['valorDescontoTitulo'][] = "O valor do desconto não pode ser maior ou igual o valor do título ";
 
-				$this->erros[] = sprintf("[valor título = %.2f, valor do desconto = %.2f]", $valorOriginalTitulo, $value);
+				$this->erros['valorDescontoTitulo'][] = sprintf("[valor título = %.2f, valor do desconto = %.2f]", $valorOriginalTitulo, $value);
 				return false;
 			}
 
@@ -304,9 +304,9 @@ class Validador{
 			$desconto = ($valorOriginalTitulo * $percent );
 
 			if( $desconto > $valorOriginalTitulo ){
-				$this->erros[] = "O valor do desconto não pode ser maior ou igual o valor do título ";
+				$this->erros['percentualDescontoTitulo'][] = "O valor do desconto não pode ser maior ou igual o valor do título ";
 
-				$this->erros[] = sprintf("[valor título = %.2f, valor do desconto = %.2f]", $valorOriginalTitulo, $desconto);
+				$this->erros['percentualDescontoTitulo'][] = sprintf("[valor título = %.2f, valor do desconto = %.2f]", $valorOriginalTitulo, $desconto);
 
 				return false;
 			} 
@@ -329,7 +329,7 @@ class Validador{
 		$dataAtual	  = new \DateTime();
 
 		if( $dataCadastro > $dataAtual ){
-			$this->erros[] = "A data de cadastro do título não pode ser maior que a data atual";
+			$this->erros['dataCadastroTitulo'][] = "A data de cadastro do título não pode ser maior que a data atual";
 			return false;
 		}
 		$this->dadosTitulo['dataCadastroTitulo'] = $dataCadastro;
@@ -342,23 +342,23 @@ class Validador{
 			// juros do tipo valor
 			if( $value == 1 ){
 				if(!array_key_exists('valorJuroMoraTitulo', $this->dadosTitulo)){
-					$this->erros[] = sprintf("Campo obrigatório não informado [valorJuroMoraTitulo]");
+					$this->erros['dataCadastroTitulo'][] = sprintf("Campo obrigatório não informado [valorJuroMoraTitulo]");
 				}
 			}
 			// juros do tipo percentual
 			else if( $value == 2){
 				if(!array_key_exists('percentualJuroMoraTitulo', $this->dadosTitulo)){
-					$this->erros[] = sprintf("Campo obrigatório não informado [percentualJuroMoraTitulo]");
+					$this->erros['dataCadastroTitulo'][] = sprintf("Campo obrigatório não informado [percentualJuroMoraTitulo]");
 				}
 			}
 
 			if(!array_key_exists('dataJuroMoraTitulo',$this->dadosTitulo)){
-				$this->erros[] = sprintf("Campo obrigatório não informado [dataJuroMoraTitulo]");
+				$this->erros['dataCadastroTitulo'][] = sprintf("Campo obrigatório não informado [dataJuroMoraTitulo]");
 			}
 
 			return true;
 		}else{
-			$this->erros[] = "Tipo de juros inválido";
+			$this->erros['dataCadastroTitulo'][] = "Tipo de juros inválido";
 			return false;
 		}
 	}
@@ -390,7 +390,7 @@ class Validador{
 		}
 
 		if(!array_key_exists('dataVencimentoTitulo', $this->dadosTitulo)){
-			$this->erros[] = "Falha ao comparar a data de incidência de juros com a data de vencimento do título";
+			$this->erros['dataJuroMoraTitulo'][] = "Falha ao comparar a data de incidência de juros com a data de vencimento do título";
 			return false;
 		}
 
@@ -398,7 +398,7 @@ class Validador{
 			try{
 				$dataVencimentoTitulo = \DateTime::createFromFormat('d.m.Y', $this->dadosTitulo['dataVencimentoTitulo']);
 			}catch(\Exception $ex){
-				$this->erros[] = "Falha ao comparar a data de incidencia de juros com a data de vencimento do título";
+				$this->erros['dataJuroMoraTitulo'][] = "Falha ao comparar a data de incidencia de juros com a data de vencimento do título";
 				return false;
 			}
 		}else{
@@ -406,7 +406,7 @@ class Validador{
 		}
 
 		if( $dataJuroMoraTitulo  <= $dataVencimentoTitulo ){
-			$this->erros[] = "A data de incidência de juros não pode ser menor ou igual a data de vencimento do título";
+			$this->erros['dataJuroMoraTitulo'][] = "A data de incidência de juros não pode ser menor ou igual a data de vencimento do título";
 			return false;
 		}
 
@@ -427,22 +427,22 @@ class Validador{
 		if( in_array( $value, [0,1,2])){ 
 			if( $value == 1 ){
 				if( !array_key_exists('valorMultaTitulo',$this->dadosTitulo)){
-					$this->erros[] = sprintf("Campo obrigatório não informado [valorMultaTitulo]");
+					$this->erros['codigoTipoMulta'][] = sprintf("Campo obrigatório não informado [valorMultaTitulo]");
 				}							
 			}
 			else if( $value == 2){
 				if( !array_key_exists('percentualMultaTitulo', $this->dadosTitulo)){
-					$this->erros[] = sprintf("Campo obrigatório não informado [percentualMultaTitulo]");								
+					$this->erros['codigoTipoMulta'][] = sprintf("Campo obrigatório não informado [percentualMultaTitulo]");								
 				}
 			}
 
 			if( !array_key_exists('dataMultaTitulo', $this->dadosTitulo)){
-				$this->erros[] = sprintf("Campo obrigatório não informado [dataMultaTitulo]");
+				$this->erros['codigoTipoMulta'][] = sprintf("Campo obrigatório não informado [dataMultaTitulo]");
 			}
 
 			return true;
 		}else{
-			$this->erros[] = "Tipo de multa inválido";
+			$this->erros['codigoTipoMulta'][] = "Tipo de multa inválido";
 			return false;
 		}
 	}
@@ -483,7 +483,7 @@ class Validador{
 			}
 			
 		}catch(\Exception $ex){
-			$this->erros[] =  $ex->getMessage();
+			$this->erros['dataMultaTitulo'][] =  $ex->getMessage();
 			return false;
 		}
 
@@ -495,13 +495,13 @@ class Validador{
 					$dataVencimentoTitulo = $this->dadosTitulo['dataVencimentoTitulo'];
 				}
 			}catch(\Exception $ex){
-				$this->erros[] = "Falha ao comparar com a data de vencimento do título. Verifique o vencmento informado no campo [dataVencimentoTitulo]";
+				$this->erros['dataMultaTitulo'][] = "Falha ao comparar com a data de vencimento do título. Verifique o vencmento informado no campo [dataVencimentoTitulo]";
 				return false;
 			}
 		}
 
 		if( $dataMultaTitulo <= $dataVencimentoTitulo ){
-			$this->erros[] = "A data de aplicação da multa não pode ser menor ou igual a data de vencimento do título";
+			$this->erros['dataMultaTitulo'][] = "A data de aplicação da multa não pode ser menor ou igual a data de vencimento do título";
 			return false;
 		}
 		$this->dadosTitulo['dataMultaTitulo'] = $dataMultaTitulo;
@@ -543,7 +543,7 @@ class Validador{
 
 	public function nomePagador($value){
 		if( strlen( $value ) > 30 ){
-			$this->erros[] = "Campo não pode ter mais que 30 caracteres";
+			$this->erros['nomePagador'][] = "Campo não pode ter mais que 30 caracteres";
 			return false;
 		}
 		return true;
@@ -553,14 +553,14 @@ class Validador{
 		try{
 			$dataEmissaoTitulo = \DateTime::createFromFormat('d.m.Y', $value);
 		}catch(\Exception $ex){
-			$this->erros[] = $ex->getMessage();
+			$this->erros['dataEmissaoTitulo'][] = $ex->getMessage();
 			return false;
 		}
 
 		$dataAtual = new  \DateTime();
 
 		if( $dataEmissaoTitulo > $dataAtual ){
-			$this->erros[] = "A data de emissão não pode ser maior que a data atual";
+			$this->erros['dataEmissaoTitulo'][] = "A data de emissão não pode ser maior que a data atual";
 			return false;
 		}
 
@@ -570,7 +570,7 @@ class Validador{
 
 	public function descricaoTitulo($value){
 		if( strlen( $value ) > 30 ){
-			$this->erros[] = "Limite de caracteres 30";
+			$this->erros['descricaoTitulo'][] = "Limite de caracteres 30";
 			return false;
 		}
 		return true;
@@ -602,7 +602,7 @@ class Validador{
 				);
 			}			
 		}
-
+ 
 		$numErros = count($this->erros);
 		if( $numErros > 0){
 			$type = 'error';

@@ -4,11 +4,11 @@ require_once __DIR__ . "/vendor/autoload.php";
 use CobrancaNet\CobrancaNet;
 
 session_start();
-$user_id="APaQWlktYSkXNozkzDbFoZOuWLAoJpAKFbccMNXkgHIuwIfwMHBBhQxDdxsnmsysUbWhosSUBbPxkwtxDuzkMwopthdgbcawDxerpxNqZeoJaiGeeFPqCEhwmLdNoEKrBokqmziLdYUEGcjlizdlDL";
-	$secret ="YcUtdFFjXtWwJTNbcErxaODDFzNAuRySuSMYZRIwMfsWzGycLqamFdqKcELYXJqRdEqCXAyjfqGfyFHKwhxBLnMosZMPiDiMIZOfaNPFFWlEbsPYbMamBmbtMnKursIASXgslwzqSkuueKSFYssagUUsIfoBZxCrUilGekyyWssAELGdFzDlTZfdETedRhWnPHtusrsOlmPqyWTEUYqpxWSCqygJfDxwLrrEjkTWYjNXFhbbGRQEokHfio";
+$user_id="KLyWAAMuWeUEWLMhpdPWIqDnbkQMUGifShCTiOOFsjJOuWxkzMHIDLwfxNsRTcynJAHsOWyIFHXBeTmehtmlGjRDxKWRmUFxWMplintouRpamcETXqGeaYiYiFpWauSxHJjqxdfswWSizYDWOJBphj";
+	$secret ="ttyuWiXaByTpqxCozIedsIafRtcNPmFJhDFEldenczeSxgHwomZhuANNtpbJdhSKkYOXBtKetoxqUFmKrMrnMGBGxdPaKjlwIBSKueooSmgorSAkfsZszbzwEPXPAILIKeSGJIwcucRnwRZcLyUKaTHekfukoGtzlMFuWBYQdqFZJeBUdXgDqnicTdNIkHHWUMRqNpIrgNRpsSKWprahfJKznYHYfPuAcMqqDAijNAaHTldKdEsJODJCbQ";
 $CobrancaNet = new CobrancaNet( $user_id, $secret);
 $CobrancaNet->set('numeroDocumento', '014164')
-->set('dataVencimentoTitulo', '09.11.2019')
+->set('dataVencimentoTitulo', '07.11.2019')
 ->set('valorOriginalTitulo', '545.65')
 ->set('codigoTipoInscricaoPagador', '1')
 ->set('nomePagador','ALANA PRISCILLA')
@@ -31,7 +31,7 @@ $CobrancaNet->set('numeroDocumento', '014164')
 ->set('nomeMunicipioPagador','BRASILIA')
 ->set('nomeBairroPagador','BRAZLANDIA')
 ->set('permitirRecebimentoParcial','0') 
-->set('dataDescontoTitulo','08.11.2019') 
+->set('dataDescontoTitulo','15.11.2019') 
 ->set('valorDescontoTitulo','2.00')
 ->set('percentualDescontoTitulo','2.00')
 ->set('codigoModalidadeTitulo','1')
@@ -43,10 +43,11 @@ $CobrancaNet->set('numeroDocumento', '014164')
 ->set('dataJuroMoraTitulo','21.12.2019')
 ->set('valorJuroMoraTitulo','2.00')
 ->set('percentualJuroMoraTitulo','2.00')
-->set('numeroInscricaoPagador', '03734431107');
+->set('numeroInscricaoPagador', '037344311072');
 
 $CobrancaNet->executar( function( $result ){
-	 var_dump($result);
+	echo "<pre>";
+	var_dump($result);
 });
 
 /*
