@@ -4,10 +4,12 @@ require_once __DIR__ . "/vendor/autoload.php";
 use CobrancaNet\CobrancaNet;
 use Spipu\Html2Pdf\Html2Pdf;
 
+ 
 session_start();
 $user_id="KLyWAAMuWeUEWLMhpdPWIqDnbkQMUGifShCTiOOFsjJOuWxkzMHIDLwfxNsRTcynJAHsOWyIFHXBeTmehtmlGjRDxKWRmUFxWMplintouRpamcETXqGeaYiYiFpWauSxHJjqxdfswWSizYDWOJBphj";
 	$secret ="ttyuWiXaByTpqxCozIedsIafRtcNPmFJhDFEldenczeSxgHwomZhuANNtpbJdhSKkYOXBtKetoxqUFmKrMrnMGBGxdPaKjlwIBSKueooSmgorSAkfsZszbzwEPXPAILIKeSGJIwcucRnwRZcLyUKaTHekfukoGtzlMFuWBYQdqFZJeBUdXgDqnicTdNIkHHWUMRqNpIrgNRpsSKWprahfJKznYHYfPuAcMqqDAijNAaHTldKdEsJODJCbQ";
 $CobrancaNet = new CobrancaNet( $user_id, $secret);
+$CobrancaNet->setAmbiente(COBRANCANET_PRDC);
 $CobrancaNet->set('numeroDocumento', '014164')
 ->set('fk_id_convenio',12)
 ->set('fk_id_taxa', 1)
@@ -47,119 +49,9 @@ $CobrancaNet->set('numeroDocumento', '014164')
 ->set('percentualJuroMoraTitulo','2.00')
 ->set('numeroInscricaoPagador', '03734431107');
 
-$CobrancaNet->executar(function( $result ){
-	 
-		echo "<pre>";
-		var_dump($result);
-	 
+$CobrancaNet->executar(function( $result ){ 
+	echo "<pre>";
+	//var_dump($result); 
 });
-//$CobrancaNet->getPdfDocument(null);
- 
 
-/*
-if( true ){ 
-	$ch = curl_init();
-
-	
-	curl_setopt($ch, CURLOPT_URL, "http://boleto.net/auth/token");
-	curl_setopt($ch, CURLOPT_POST, 1);
-	 
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-	curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-		'Accept: application/json',
-		'Authorization: Basic ' . base64_encode( $user_id . ":" . $secret)
-	));
-
-	$result = curl_exec( $ch );
- 	
-	//die($result);
-	curl_close($ch);   
-	$resposta = json_decode($result);
-
-	 //die($result);
-
-	if( $resposta->type == 'error'){
-		die( $resposta->msg);
-	}else{
-		$_SESSION['TOKEN'] = $resposta;
-	}
-	  
-}
-// valida token
-
-
-if( isset($_SESSION['TOKEN'])){
-	$token = $_SESSION['TOKEN'];
-
-	$ch = curl_init();
-	curl_setopt($ch, CURLOPT_URL, "http://boleto.net/auth/validar");
-	curl_setopt($ch, CURLOPT_POST, 1); 
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-	curl_setopt($ch, CURLOPT_POSTFIELDS,[
-		
-			'fk_id_taxa' => 2,
-			'fk_id_convenio' => 2,
-			'fk_id_cliente' => 1,
-			//'valorDocumento' => '56.90',
-
-			'numeroDocumento' => '93900002',
-			'descricaoTitulo' => 'COBRANÇA DE REMATRICULAAAAAAA',
-			'dataCadastroTitulo' => '1.11.2019', 
-			'dataVencimentoTitulo' => '15.11.2019', 
-			'codigoModalidadeTitulo' => 1,
-			'dataEmissaoTitulo' => '1.11.2019',
-			'valorOriginalTitulo' => '95.60',
-
-			'codigoTipoDescontoTitulo' => 1,
-			'dataDescontoTitulo' => 'D',
-			'valorDescontoTitulo' => '12.90',
-			'percentualDescontoTitulo' => '3.3',
-
-
-			'codigoTipoJuroMoraTitulo' => 1,
-			'percentualJuroMoraTitulo' => '1',
-			//'dataJuroMoraTitulo' => '11.11.2019',
-			'dataJuroMoraTitulo' => 'D+1',
-			'valorJuroMoraTitulo' => '10.00',
-
-
-			'codigoTipoMulta' => 1,
-			//'dataMultaTitulo' => '11.11.2019',
-			'dataMultaTitulo' => 'D+1',
-			'percentualMultaTitulo' => '3.5',
-			'valorMultaTitulo' => '2.00',
-
-
-			'codigoAceiteTitulo' => 'N',
-			'codigoTipoTitulo' => 17,
-			'permitirRecebimentoParcial' => 'N',
-			'nossoNumeroTitulo' => 0,
-			'textoMensagemBloquetoOcorrencia' => '',
-			'codigoTipoInscricaoPagador' => 1,
-			'numeroInscricaoPagador' => '03734431107',
-			'nomePagador' => 'TALIANDERSON DIAS', 
-			'postarTituloCorreio' => 1,
-			'numeroCepPagador' => '72726111',
-			'siglaUfPagador' => 'DF', 
-			'nomeMunicipioPagador' => 'BRASILIA',
-			'nomeBairroPagador' => 'BRAZLANDIA',
-			'textoEnderecoPagador' => 'Q 5 CJ K', 
-			'codigoTipoInscricaoAvalista' => '1',
-			'numeroInscricaoAvalista' => '03734431107',
-			'nomeAvalistaTitulo' => 'AVALISTA AQUI' 
-		
-	]);
-	curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-	    "Accept: application/json" ,
-	    "Authorization: Bearer " . $token->data->token  ,
-	    "Origin: ". "http://".$_SERVER["HTTP_HOST"]
-	));
-
-	$result = curl_exec($ch); 
-	 
-
-	$resposta = json_decode( $result );
-	//die($result);
-	curl_close($ch); 
-	var_dump($resposta);
-}*/
+$CobrancaNet->getPdfDocument(null); 

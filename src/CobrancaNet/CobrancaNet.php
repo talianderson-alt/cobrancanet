@@ -3,18 +3,12 @@
 namespace CobrancaNet;
 use CobrancaNet\Validador\Validador;
 
-define("PRODUCAO", array(
-	'token' => 'http://boleto.net/auth/token',
-	'registro' => 'http://boleto.net/auth/validar'
-));
-
-define("HOMOLOGACAO", array(
-	'token' => 'http://boleto.net/auth/token',
-	'registro' => 'http://boleto.net/auth/validar'
-));
 
 class CobrancaNet{
 
+	/**
+	* @var $user_id
+	*/
 	private $user_id;
 	private $secret;
 	private $ambiente;
@@ -33,11 +27,19 @@ class CobrancaNet{
  		return $this->numeroDocumento;
  	}
 
+ 	public function setAmbiente( $ambiente ){ 
+ 		if( in_array($ambiente, [COBRANCANET_PRDC,COBRANCANET_HMLG])){
+ 			$this->ambiente = $ambiente;
+ 			return true;
+ 		}
+ 		return false;
+ 	}
+
 
 	public function __construct( $user_id, $secret ){
 		$this->user_id = $user_id;
 		$this->secret = $secret;
-		$this->ambiente = PRODUCAO;
+		//$this->ambiente = PRODUCAO;
 		$this->dadosTitulo = array();
 	}
 
@@ -76,7 +78,7 @@ class CobrancaNet{
 	 
 		$validator->validar( function( $result , $dadosValidos ) use (   $function  )  {
 			 
-			
+
 			if( $result['type'] == 'success' ){
 				$token = $this->getToken(); 
 				if( is_object( $token ) ){
