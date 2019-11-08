@@ -19,14 +19,14 @@ $CobrancaNet->set('numeroDocumento', '014164')
 ->set('nomePagador','ALANA PRISCILLA')
 ->set('dataEmissaoTitulo', '06.11.2019')
 ->set('codigoTipoTitulo', '1')
-->set('descricaoTitulo', 'CONTA DE INTERNET')
+//->set('descricaoTitulo', 'CONTA DE INTERNET')
 ->set('codigoTipoDescontoTitulo',0)
 ->set('postarTituloCorreio', 0)
 ->set('textoEnderecoPagador','Q 5 ON D') 
 ->set('dataCadastroTitulo','01.11.2019')
 ->set('codigoTipoInscricaoAvalista','1')
-->set('numeroInscricaoAvalista','03734431107')
 ->set('nomeAvalistaTitulo','TALIANDERSON')
+->set('numeroInscricaoAvalista','03734431107') 
 ->set('codigoAceiteTitulo','N')
 ->set('numeroCepPagador','72726111')
 ->set('siglaUfPagador','DF')
@@ -48,10 +48,12 @@ $CobrancaNet->set('numeroDocumento', '014164')
 ->set('numeroInscricaoPagador', '03734431107');
 
 $CobrancaNet->executar(function( $result ){
- 
- 
+	 
+		echo "<pre>";
+		var_dump($result);
+	 
 });
-$CobrancaNet->getPdfDocument(null);
+//$CobrancaNet->getPdfDocument(null);
  
 
 /*

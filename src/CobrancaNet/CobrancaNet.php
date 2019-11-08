@@ -71,11 +71,12 @@ class CobrancaNet{
 
 	public function executar( $function ){
 
-		$validator = new Validador();
-		$validator->setDadosTitulo( $this->dadosTitulo );
+		$validator = new Validador(); 
+		$validator->setDadosTitulo($this->dadosTitulo);
 	 
-		$validator->validar( function( $result ) use (   $function  )  {
+		$validator->validar( function( $result , $dadosValidos ) use (   $function  )  {
 			 
+			
 			if( $result['type'] == 'success' ){
 				$token = $this->getToken(); 
 				if( is_object( $token ) ){
@@ -84,7 +85,7 @@ class CobrancaNet{
 						curl_setopt($this->curl, CURLOPT_URL, $this->ambiente['registro']);
 						curl_setopt($this->curl, 
 							CURLOPT_POSTFIELDS, 
-							$this->dadosTitulo
+							$dadosValidos
 						);
 
 						curl_setopt($this->curl, CURLOPT_HTTPHEADER, array(
@@ -94,7 +95,7 @@ class CobrancaNet{
 						)); 
 
 						$request = curl_exec($this->curl); 
-						 
+						  
 						$request = json_decode($request);
 
 						if( is_object( $request ) ){

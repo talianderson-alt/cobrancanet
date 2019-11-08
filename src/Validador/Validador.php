@@ -137,7 +137,7 @@ class Validador{
 	}
 
 	public function codigoTipoInscricaoAvalista($value){
-		if(!in_array( $value, [1,2])){
+		if(!in_array( $value, [0,1,2])){
 			$this->erros['codigoTipoInscricaoAvalista'][] = "Valores permitidos 1 - CPF, 2 - CNPJ";
 			return false;
 		}
@@ -586,8 +586,8 @@ class Validador{
 		return true;
 	}
 
-	public function setDadosTitulo( array $itens = []){
-		$this->dadosTitulo = $itens;
+	public function setDadosTitulo( array $itens = []){  
+		$this->dadosTitulo = $this->setDefaultValues($itens); 
 	}
 
 	public function validar( $callback ){
@@ -629,13 +629,30 @@ class Validador{
 			$result['data'] = $this->dadosTitulo;
 		}
 
-		$callback( $result );		
+		foreach( $this->dadosTitulo as $key => &$val ){
+			if( $val instanceof \DateTime){
+				$val = $val->format('d.m.Y');
+			}
+		}
+
+		$callback( $result, $this->dadosTitulo );		
 	}
 
 
-	private $dadosTitulo;
+	private $dadosTitulo = [];
 	private $erros = [];
 	private $_inputValidator;
+
+	private function setDefaultValues( $array ){
+		foreach( $this->_inputValidator as $key => $input ){ 
+			if( !array_key_exists( $key, $array )){
+				if(array_key_exists('default', $input)){
+				 	$array [$key] = $input['default'];
+				}
+			} 
+		}
+		return $array;
+	}
 
 	public function __construct(){
 		$this->_inputValidator  = [
@@ -661,7 +678,8 @@ class Validador{
 			],
 
 			'postarTituloCorreio' => [
-				'obrigatorio' => true 
+				'obrigatorio' => true ,
+				'default' => '0'
 			],
 
 			'numeroCepPagador' => [
@@ -689,7 +707,8 @@ class Validador{
 			],
 
 			'codigoTipoDescontoTitulo' => [
-				'obrigatorio' => true 
+				'obrigatorio' => true ,
+				'default' => '0'
 			],
 
 			'dataDescontoTitulo' => [
@@ -697,19 +716,23 @@ class Validador{
 			],
 
 			'valorDescontoTitulo' => [
-				'obrigatorio' => false 
+				'obrigatorio' => false,
+				'default' => '0.00'
 			],
 
 			'percentualDescontoTitulo' => [
-				'obrigatorio' => false 
+				'obrigatorio' => false ,
+				'default' => '0.00'
 			],
 
 			'dataCadastroTitulo' => [
-				'obrigatorio' => false 
+				'obrigatorio' => false ,
+				'default' => date("d.m.Y")
 			],
 
 			'codigoTipoJuroMoraTitulo' =>[
-				'obrigatorio' => false 
+				'obrigatorio' => false ,
+				'default' => '0'
 			],
 
 			'dataJuroMoraTitulo' => [
@@ -717,15 +740,18 @@ class Validador{
 			],
 
 			'valorJuroMoraTitulo' => [
-				'obrigatorio' => false 
+				'obrigatorio' => false ,
+				'default' => '0.00'
 			],
 
 			'percentualJuroMoraTitulo' => [
-				'obrigatorio' => false 
+				'obrigatorio' => false ,
+				'default' => '0.00'
 			],
 
 			'codigoTipoMulta' => [
-				'obrigatorio' => false 
+				'obrigatorio' => false,
+				'default' => '0' 
 			],
 
 			 
@@ -734,11 +760,18 @@ class Validador{
 			],
 
 			'valorMultaTitulo' => [
-				'obrigatorio' => false
+				'obrigatorio' => false,
+				'default' => '0.00'
 			],
 
 			'percentualMultaTitulo' => [
-				'obrigatorio' => false 
+				'obrigatorio' => false ,
+				'default' => '0.00'
+			],
+
+			'nomeAvalistaTitulo' => [
+				'obrigatorio' => false,
+				'default' => 'TESTE'
 			],
 
 			'nomePagador' => [
@@ -746,13 +779,16 @@ class Validador{
 			],
 
 			'dataEmissaoTitulo' => [
-				'obrigatorio' => true 
+				'obrigatorio' => true ,
+				'default' => date("d.m.Y")
 			],
 
 			'descricaoTitulo' => [
-				'obrigatorio' => true 
+				'obrigatorio' => true ,
+				'default' => 'Boleto avulso'
 			]
 		];
+ 
 	}
 
 	public static function getValue( $array, $key, $type = null ){
