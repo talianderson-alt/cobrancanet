@@ -625,17 +625,17 @@ class Validador{
 			'erros' => $this->erros 
 		];
 
-		if( $type == 'success'){
-			$result['data'] = $this->dadosTitulo;
-		}
-
 		foreach( $this->dadosTitulo as $key => &$val ){
 			if( $val instanceof \DateTime){
 				$val = $val->format('d.m.Y');
 			}
 		}
 
-		$callback( $result, $this->dadosTitulo );		
+		if( $type == 'success'){
+			$result['data'] = $this->dadosTitulo;
+		}
+ 
+		return $callback( $result );	 
 	}
 
 
