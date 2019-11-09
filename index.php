@@ -6,14 +6,11 @@ use Spipu\Html2Pdf\Html2Pdf;
 
  
 session_start();
-$user_id="KLyWAAMuWeUEWLMhpdPWIqDnbkQMUGifShCTiOOFsjJOuWxkzMHIDLwfxNsRTcynJAHsOWyIFHXBeTmehtmlGjRDxKWRmUFxWMplintouRpamcETXqGeaYiYiFpWauSxHJjqxdfswWSizYDWOJBphj";
-	$secret ="ttyuWiXaByTpqxCozIedsIafRtcNPmFJhDFEldenczeSxgHwomZhuANNtpbJdhSKkYOXBtKetoxqUFmKrMrnMGBGxdPaKjlwIBSKueooSmgorSAkfsZszbzwEPXPAILIKeSGJIwcucRnwRZcLyUKaTHekfukoGtzlMFuWBYQdqFZJeBUdXgDqnicTdNIkHHWUMRqNpIrgNRpsSKWprahfJKznYHYfPuAcMqqDAijNAaHTldKdEsJODJCbQ";
+$user_id="APaQWlktYSkXNozkzDbFoZOuWLAoJpAKFbccMNXkgHIuwIfwMHBBhQxDdxsnmsysUbWhosSUBbPxkwtxDuzkMwopthdgbcawDxerpxNqZeoJaiGeeFPqCEhwmLdNoEKrBokqmziLdYUEGcjlizdlDL";
+	$secret ="YcUtdFFjXtWwJTNbcErxaODDFzNAuRySuSMYZRIwMfsWzGycLqamFdqKcELYXJqRdEqCXAyjfqGfyFHKwhxBLnMosZMPiDiMIZOfaNPFFWlEbsPYbMamBmbtMnKursIASXgslwzqSkuueKSFYssagUUsIfoBZxCrUilGekyyWssAELGdFzDlTZfdETedRhWnPHtusrsOlmPqyWTEUYqpxWSCqygJfDxwLrrEjkTWYjNXFhbbGRQEokHfio";
 $CobrancaNet = new CobrancaNet( $user_id, $secret);
 $CobrancaNet->setAmbiente(COBRANCANET_PRDC);
-$CobrancaNet->set('numeroDocumento', '014164')
-->set('fk_id_convenio',12)
-->set('fk_id_taxa', 1)
-->set('fk_id_cliente',1)
+$CobrancaNet->set('numeroDocumento', '014164')   
 ->set('codigoConvenio', '3330023NJD')
 ->set('dataVencimentoTitulo', '30.11.2019')
 ->set('valorOriginalTitulo', '545.65')
@@ -21,7 +18,7 @@ $CobrancaNet->set('numeroDocumento', '014164')
 ->set('nomePagador','ALANA PRISCILLA')
 ->set('dataEmissaoTitulo', '06.11.2019')
 ->set('codigoTipoTitulo', '1')
-//->set('descricaoTitulo', 'CONTA DE INTERNET')
+->set('descricaoTitulo', 'CONTA DE INTERNET')
 ->set('codigoTipoDescontoTitulo',0)
 ->set('postarTituloCorreio', 0)
 ->set('textoEnderecoPagador','Q 5 ON D') 
@@ -51,7 +48,6 @@ $CobrancaNet->set('numeroDocumento', '014164')
 
 $CobrancaNet->executar(function( $result ){ 
 	echo "<pre>";
-	//var_dump($result); 
+	var_dump($result); 
 });
-
-$CobrancaNet->getPdfDocument(null); 
+ 

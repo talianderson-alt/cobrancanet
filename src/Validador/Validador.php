@@ -622,7 +622,8 @@ class Validador{
 
 		$result = [
 			'type' => $type,
-			'erros' => $this->erros 
+			'erros' => $this->erros,
+			'validacao' => 'local' 
 		];
 
 		foreach( $this->dadosTitulo as $key => &$val ){
