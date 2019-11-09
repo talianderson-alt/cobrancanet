@@ -2,7 +2,7 @@
 require_once __DIR__ . "/vendor/autoload.php";
 
 use CobrancaNet\CobrancaNet;
-use Spipu\Html2Pdf\Html2Pdf;
+use CobrancaNet\Pdf\BoletoPdf;
 
  
 session_start();
@@ -12,8 +12,8 @@ $CobrancaNet = new CobrancaNet( $user_id, $secret);
 $CobrancaNet->setAmbiente(COBRANCANET_PRDC);
 $CobrancaNet->set('numeroDocumento', '014164')   
 ->set('codigoConvenio', '3330023NJD')
-->set('dataVencimentoTitulo', '30.11.2019')
-->set('valorOriginalTitulo', '545.65')
+->set('dataVencimentoTitulo', '15.11.2019')
+->set('valorOriginalTitulo', '5145.65')
 ->set('codigoTipoInscricaoPagador', '1')
 ->set('nomePagador','ALANA PRISCILLA')
 ->set('dataEmissaoTitulo', '06.11.2019')
@@ -46,8 +46,11 @@ $CobrancaNet->set('numeroDocumento', '014164')
 ->set('percentualJuroMoraTitulo','2.00')
 ->set('numeroInscricaoPagador', '03734431107');
 
-$CobrancaNet->executar(function( $result ){ 
-	echo "<pre>";
-	var_dump($result); 
+$CobrancaNet->executar(function($result ) use ($CobrancaNet){ 
+	if( $result->type == 'success'){
+		$CobrancaNet->getPdfDocument( function( $boletoPdf ){
+			$boletoPdf->output(); 
+		});
+	}
 });
- 
+

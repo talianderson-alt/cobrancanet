@@ -19,9 +19,10 @@ class Validador{
 	*/
 	public function dataVencimentoTitulo($value ){
 
-		 $dataAtual = new \DateTime();
+		 $dataAtual =   \DateTime::createFromFormat('Y-m-d',date('Y-m-d'));
 
 		 try{
+		 	
 		 	if( !($value instanceof \DateTime)){
 		 		$dataVencimentoTitulo = \DateTime::createFromFormat("d.m.Y", $value);
 		 	}else{
@@ -35,11 +36,11 @@ class Validador{
 
 
 		 if( $dataVencimentoTitulo < $dataAtual){
-		 	$this->erros['dataVencimentoTitulo'][] = "A data de vencimento do título não pode ser menor que a data atual";
+		 	$this->erros['dataVencimentoTitulo'][] = $dataVencimentoTitulo->format('d.m.Y')." A data de vencimento do título não pode ser menor que a data atual";
 		 	return false;
 		 }
 
-		 $this->dadosTitulo['dataVencimentoTitulo'] = $dataVencimentoTitulo;
+		 $this->dadosTitulo['dataVencimentoTitulo']  = $dataVencimentoTitulo;
 		 return true;
 	}
 

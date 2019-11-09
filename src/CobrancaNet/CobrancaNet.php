@@ -2,6 +2,7 @@
 
 namespace CobrancaNet;
 use CobrancaNet\Validador\Validador;
+use CobrancaNet\Pdf\BoletoPdf;
 
 
 class CobrancaNet{
@@ -127,10 +128,11 @@ class CobrancaNet{
 		});  
 	}
 
-	public function getPdfDocument( $dados ){
-
-		echo "<pre>";
-		var_dump($this->dadosBoleto);
+	public function getPdfDocument( $callback ){
+		$boletoPdf = new BoletoPdf();
+		$boletoPdf->setDadosBoleto($this->dadosBoleto);
+		$boletoPdf->write();
+		return $callback( $boletoPdf );
 	}
 
 

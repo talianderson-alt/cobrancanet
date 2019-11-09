@@ -17,7 +17,8 @@
     "autoload":{
     	"psr-4":{
     		"CobrancaNet\\": "src/",
-    		"CobrancaNet\\Validador\\" :"src/Validador/" 
+    		"CobrancaNet\\Validador\\" :"src/Validador/",
+            "CobrancaNet\\Pdf\\" : "src/BoletoPdf/" 
         },
         "files": [
             "config/config.php"
