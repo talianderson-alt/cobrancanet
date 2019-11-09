@@ -654,6 +654,10 @@ class Validador{
 		return $array;
 	}
 
+	public function getInputValidator(){
+		return $this->_inputValidator;
+	}
+
 	public function __construct(){
 		$this->_inputValidator  = [
 
