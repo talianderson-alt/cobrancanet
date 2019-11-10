@@ -17,7 +17,7 @@
 	            var blob = new Blob([arrayBuffer], {
 	                type: "application/pdf"
 	            });
-	            var fileUrl = URL.createObjectURL( blob );
+	            var fileUrl = URL.createObjectURL( blob ); 
 	            window.open( fileUrl ); 
 	        }).catch(function(erro) {
 	            console.log(erro);

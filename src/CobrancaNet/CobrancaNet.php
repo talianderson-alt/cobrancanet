@@ -68,10 +68,6 @@ class CobrancaNet{
 		return json_decode($result);
 	}
 
-	public function validarCampos(){
-
-	}
-
 	public function executar( $function ){
 
 		$validator = new Validador(); 
@@ -109,14 +105,14 @@ class CobrancaNet{
 							$function( $request );
 						}
 					}else{
-						$function( array(
+						$function( (object) array(
 							'type' => 'error',
 							'message' => $token->msg,
 							'data' => null
 						));
 					}
 				}else{
-					$function( array(
+					$function( (object) array(
 						'type' => 'error',
 						'message' => 'Falha ao recuperar o token',
 						'data' => null
@@ -127,6 +123,35 @@ class CobrancaNet{
 			} 
 		});  
 	}
+
+
+	public function query( $dados ){
+		$token = $this->getToken();
+		if( $token->type == 'success' ){
+			$this->initCurl();
+			curl_setopt($this->curl, CURLOPT_URL, $this->ambiente['consulta']);
+			curl_setopt($this->curl, 
+				CURLOPT_POSTFIELDS, 
+				$dados
+			);
+
+			curl_setopt($this->curl, CURLOPT_HTTPHEADER, array(
+			    "Accept: application/json" ,
+			    "Authorization: Bearer " . $token->data->token  ,
+			    "Origin: ". "http://". $_SERVER["HTTP_HOST"]
+			)); 
+
+			$request = curl_exec( $this->curl );
+			 
+			$request = json_decode($request);
+
+			curl_close($this->curl);
+			return $request;
+		}else{
+			return null;
+		}
+	}
+
 
 	public function getPdfDocument( $callback ){
 		$boletoPdf = new ExportPdf();

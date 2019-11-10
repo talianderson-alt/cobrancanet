@@ -20,7 +20,7 @@ $CobrancaNet->set('numeroDocumento', '014164')
 ->set('codigoTipoTitulo', '1')
 ->set('descricaoTitulo', 'CONTA DE INTERNET')
 ->set('codigoTipoDescontoTitulo',0)
-->set('postarTituloCorreio', 0)
+->set('postarTituloCorreio', 1)
 ->set('textoEnderecoPagador','Q 5 ON D') 
 ->set('dataCadastroTitulo','01.11.2019')
 ->set('codigoTipoInscricaoAvalista','1')
@@ -45,7 +45,7 @@ $CobrancaNet->set('numeroDocumento', '014164')
 ->set('valorJuroMoraTitulo','2.00')
 ->set('percentualJuroMoraTitulo','2.00')
 ->set('numeroInscricaoPagador', '03734431107');
-
+/*
 $CobrancaNet->executar(function($result ) use ($CobrancaNet){ 
 
 	if( $result->type == 'success'){
@@ -59,5 +59,12 @@ $CobrancaNet->executar(function($result ) use ($CobrancaNet){
 			echo $file;
 		});
 	}
-});
+});*/
 
+
+$result = $CobrancaNet->query([
+	'nossoNumero' => '15715930000000431',
+	'codigoDeBarras' => '00195808900006545650000001571593000000042217'
+]);
+
+var_dump($result);
