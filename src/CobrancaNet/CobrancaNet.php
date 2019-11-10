@@ -123,7 +123,7 @@ class CobrancaNet{
 					)); 
 				}
 			}else{
-				$function( $result );
+				$function( (object) $result );
 			} 
 		});  
 	}

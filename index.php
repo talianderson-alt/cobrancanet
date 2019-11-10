@@ -12,8 +12,8 @@ $CobrancaNet = new CobrancaNet( $user_id, $secret);
 $CobrancaNet->setAmbiente(COBRANCANET_PRDC);
 $CobrancaNet->set('numeroDocumento', '014164')   
 ->set('codigoConvenio', '3330023NJD')
-->set('dataVencimentoTitulo', '15.11.2019')
-->set('valorOriginalTitulo', '5145.65')
+->set('valorOriginalTitulo', '6545.65')
+->set('dataVencimentoTitulo','30.11.2019')
 ->set('codigoTipoInscricaoPagador', '1')
 ->set('nomePagador','ALANA PRISCILLA')
 ->set('dataEmissaoTitulo', '06.11.2019')
@@ -47,10 +47,16 @@ $CobrancaNet->set('numeroDocumento', '014164')
 ->set('numeroInscricaoPagador', '03734431107');
 
 $CobrancaNet->executar(function($result ) use ($CobrancaNet){ 
+
 	if( $result->type == 'success'){
+
+		//var_dump($result->data);
 		$CobrancaNet->getPdfDocument( function( $boletoPdf ){
-			$file = $boletoPdf->output('/dodc.pdf','I'); 
-			var_dump($file);
+			//sleep(3);
+			$file = $boletoPdf->output('/dodc.pdf','S'); 
+			header("Content-type:application/pdf");
+			header("Content-Disposition:attachment;filename=test.pdf");
+			echo $file;
 		});
 	}
 });
