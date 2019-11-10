@@ -18,7 +18,7 @@
     	"psr-4":{
     		"CobrancaNet\\": "src/",
     		"CobrancaNet\\Validador\\" :"src/Validador/",
-            "CobrancaNet\\Pdf\\" : "src/BoletoPdf/" 
+            "CobrancaNet\\Exportar\\" : "src/Exportar/" 
         },
         "files": [
             "config/config.php"

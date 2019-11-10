@@ -2,9 +2,9 @@
 require_once __DIR__ . "/vendor/autoload.php";
 
 use CobrancaNet\CobrancaNet;
-use CobrancaNet\Pdf\BoletoPdf;
+use CobrancaNet\Exportar\ExportPdf;
+  
 
- 
 session_start();
 $user_id="APaQWlktYSkXNozkzDbFoZOuWLAoJpAKFbccMNXkgHIuwIfwMHBBhQxDdxsnmsysUbWhosSUBbPxkwtxDuzkMwopthdgbcawDxerpxNqZeoJaiGeeFPqCEhwmLdNoEKrBokqmziLdYUEGcjlizdlDL";
 	$secret ="YcUtdFFjXtWwJTNbcErxaODDFzNAuRySuSMYZRIwMfsWzGycLqamFdqKcELYXJqRdEqCXAyjfqGfyFHKwhxBLnMosZMPiDiMIZOfaNPFFWlEbsPYbMamBmbtMnKursIASXgslwzqSkuueKSFYssagUUsIfoBZxCrUilGekyyWssAELGdFzDlTZfdETedRhWnPHtusrsOlmPqyWTEUYqpxWSCqygJfDxwLrrEjkTWYjNXFhbbGRQEokHfio";
@@ -49,7 +49,8 @@ $CobrancaNet->set('numeroDocumento', '014164')
 $CobrancaNet->executar(function($result ) use ($CobrancaNet){ 
 	if( $result->type == 'success'){
 		$CobrancaNet->getPdfDocument( function( $boletoPdf ){
-			$boletoPdf->output(); 
+			$file = $boletoPdf->output('/dodc.pdf','I'); 
+			var_dump($file);
 		});
 	}
 });

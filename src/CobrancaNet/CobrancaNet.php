@@ -2,7 +2,7 @@
 
 namespace CobrancaNet;
 use CobrancaNet\Validador\Validador;
-use CobrancaNet\Pdf\BoletoPdf;
+use CobrancaNet\Exportar\ExportPdf;
 
 
 class CobrancaNet{
@@ -129,7 +129,7 @@ class CobrancaNet{
 	}
 
 	public function getPdfDocument( $callback ){
-		$boletoPdf = new BoletoPdf();
+		$boletoPdf = new ExportPdf();
 		$boletoPdf->setDadosBoleto($this->dadosBoleto);
 		$boletoPdf->write();
 		return $callback( $boletoPdf );

@@ -1,10 +1,10 @@
 <?php
 
-namespace CobrancaNet\Pdf;
+namespace CobrancaNet\Exportar;
 
 use Spipu\Html2Pdf\Html2Pdf;
 
-class BoletoPdf extends Html2Pdf{
+class ExportPdf extends Html2Pdf{
 
 	private $dadosBoleto;
 
