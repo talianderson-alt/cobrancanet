@@ -137,6 +137,10 @@ class Validador{
 	}
 
 	public function textoEnderecoPagador($value){
+		if( strlen($value) > 30 ){
+			$this->erros['textoEnderecoPagador'][] = "Campo não pode ultrapassar 30 caracteres";
+			return false;
+		}
 		return true;
 	}
 

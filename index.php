@@ -20,7 +20,7 @@ $CobrancaNet
 //->set('codigoTipoTitulo', '1')
 //->set('descricaoTitulo', 'CONTA DE INTERNET') 
 //->set('postarTituloCorreio', 1)
-->set('textoEnderecoPagador','NUC. RURAL ALEX. GUSMÃO') 
+->set('textoEnderecoPagador','NUC. RURAL ALEX. GUSMÃOAAAAAA') 
 //->set('dataCadastroTitulo','01.11.2019')
 ->set('codigoTipoInscricaoAvalista','1')
 ->set('nomeAvalistaTitulo','TALIANDERSON')
