@@ -6,9 +6,8 @@ use CobrancaNet\Exportar\ExportPdf;
   
 
 session_start();
-$user_id="APaQWlktYSkXNozkzDbFoZOuWLAoJpAKFbccMNXkgHIuwIfwMHBBhQxDdxsnmsysUbWhosSUBbPxkwtxDuzkMwopthdgbcawDxerpxNqZeoJaiGeeFPqCEhwmLdNoEKrBokqmziLdYUEGcjlizdlDL";
-	$secret ="YcUtdFFjXtWwJTNbcErxaODDFzNAuRySuSMYZRIwMfsWzGycLqamFdqKcELYXJqRdEqCXAyjfqGfyFHKwhxBLnMosZMPiDiMIZOfaNPFFWlEbsPYbMamBmbtMnKursIASXgslwzqSkuueKSFYssagUUsIfoBZxCrUilGekyyWssAELGdFzDlTZfdETedRh";
-$CobrancaNet = new CobrancaNet( $user_id, $secret);
+ 
+$CobrancaNet = new CobrancaNet( COBRANCANET_USER_ID, COBRANCANET_SECRET);
 $CobrancaNet->setAmbiente(COBRANCANET_PRDC);
 $CobrancaNet
 ->set('codigoConvenio', 'D144113479')
