@@ -33,7 +33,7 @@ class ExportPdf extends Html2Pdf{
 		$this->layout = str_replace("{header}", $dadosConvenio->header, $this->layout);
 		$this->layout = str_replace("{dataProcessamento}", $dataCadastrotitulo->format('d/m/Y'), $this->layout);
 	    $this->layout = str_replace("{nomePagador}", $dadosBoleto->nomePagador, $this->layout);
-		 $this->layout = str_replace("{textoEnderecoPagador}", $dadosBoleto->textoEnderecoPagador, $this->layout);
+		$this->layout = str_replace("{textoEnderecoPagador}", $dadosBoleto->textoEnderecoPagador, $this->layout);
 		$this->layout = str_replace("{siglaUfPagador}",$dadosBoleto->siglaUfPagador, $this->layout);
 		$this->layout = str_replace("{nomeMunicipioPagador}", $dadosBoleto->nomeMunicipioPagador, $this->layout);
 		$this->layout = str_replace("{valorTitulo}", $dadosBoleto->valorOriginalTitulo, $this->layout);

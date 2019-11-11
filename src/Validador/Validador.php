@@ -8,8 +8,12 @@ class Validador{
 
 	public function valorOriginalTitulo( $value ){
 		if( strpos( $value, '.') === false ){
-	 		$this->erros[] = "Valor esperado: 0.00, recebito: " . $value;
+	 		$this->erros['valorOriginalTitulo'][] = "Valor esperado: 0.00, recebito: " . $value;
 	 		return false;
+	 	}
+
+	 	if( $value <= 0){
+	 		$this->erros['valorOriginalTitulo'][] = "O valor do título não pode ser zero";
 	 	}
 
 		return true;
@@ -33,8 +37,7 @@ class Validador{
 		 	$this->erros['dataVencimentoTitulo'][] = $ex->getMessage();
 		 	return false;
 		 }
-
-
+  
 		 if( $dataVencimentoTitulo < $dataAtual){
 		 	$this->erros['dataVencimentoTitulo'][] = $dataVencimentoTitulo->format('d.m.Y')." A data de vencimento do título não pode ser menor que a data atual";
 		 	return false;
@@ -199,10 +202,21 @@ class Validador{
 				// desconto do tipo valor
 				if(!array_key_exists('valorDescontoTitulo', $this->dadosTitulo)){
 					$this->erros['codigoTipoDescontoTitulo'][] = sprintf("Campo obrigatório não informado [valorDescontoTitulo]");
+				}else{
+					$valorDescontoTitulo = $this->dadosTitulo['valorDescontoTitulo'];
+					if( $valorDescontoTitulo <= 0){
+						$this->erros['valorDescontoTitulo'][] = "O valor doesconto não pode ser zero";
+					}
 				}
+
 			}else if( $value == 2 ){
 				if(!array_key_exists('percentualDescontoTitulo', $this->dadosTitulo)){
 					$this->erros['codigoTipoDescontoTitulo'][] = sprintf("Campo obrigatorio não informado [percentualDescontoTitulo]");
+				}else{
+					$percentualDescontoTitulo = $this->dadosTitulo['percentualDescontoTitulo'];
+					if( $percentualDescontoTitulo <= 0){
+						$this->erros['percentualDescontoTitulo'][] = "O valor do desconto não pode ser zero";
+					}
 				}
 			} 
 
@@ -354,22 +368,36 @@ class Validador{
 			if( $value == 1 ){
 				if(!array_key_exists('valorJuroMoraTitulo', $this->dadosTitulo)){
 					$this->erros['dataCadastroTitulo'][] = sprintf("Campo obrigatório não informado [valorJuroMoraTitulo]");
+				}else{
+					$valorJuroMoraTitulo = $this->dadosTitulo['valorJuroMoraTitulo'];
+					if( $valorJuroMoraTitulo <= 0 ){
+						$this->erros['valorJuroMoraTitulo'][] = "Valor do juro não pode ser zero";
+					}
+				}
+
+				if(!array_key_exists('dataJuroMoraTitulo',$this->dadosTitulo)){
+					$this->erros['dataJuroMoraTitulo'][] = sprintf("Campo obrigatório não informado [dataJuroMoraTitulo]");
 				}
 			}
 			// juros do tipo percentual
 			else if( $value == 2){
 				if(!array_key_exists('percentualJuroMoraTitulo', $this->dadosTitulo)){
 					$this->erros['dataCadastroTitulo'][] = sprintf("Campo obrigatório não informado [percentualJuroMoraTitulo]");
+				}else{
+					$percentualJuroMoraTitulo = $this->dadosTitulo['percentualJuroMoraTitulo'];
+					if( $percentualJuroMoraTitulo <= 0){
+						$this->erros['percentualJuroMoraTitulo'][] = "Valor do juro não pode ser zero";
+					}
 				}
-			}
 
-			if(!array_key_exists('dataJuroMoraTitulo',$this->dadosTitulo)){
-				$this->erros['dataCadastroTitulo'][] = sprintf("Campo obrigatório não informado [dataJuroMoraTitulo]");
-			}
+				if(!array_key_exists('dataJuroMoraTitulo',$this->dadosTitulo)){
+					$this->erros['dataJuroMoraTitulo'][] = sprintf("Campo obrigatório não informado [dataJuroMoraTitulo]");
+				}
+			} 
 
 			return true;
 		}else{
-			$this->erros['dataCadastroTitulo'][] = "Tipo de juros inválido";
+			$this->erros['codigoTipoJuroMoraTitulo'][] = "Tipo de juros inválido";
 			return false;
 		}
 	}
@@ -391,12 +419,15 @@ class Validador{
 
 		if( !($value instanceof \DateTime)){ 
 			try{
+
 				$dataJuroMoraTitulo = \DateTime::createFromFormat('d.m.Y', $value);
-			}catch(\Exception $ex){
-				$this->erros[] = $ex->getMessage();
+
+			}catch(\Exception $ex){ 
+				$this->erros['dataJuroMoraTitulo'][] = $ex->getMessage();
 				return false;
 			}
 		}else{
+
 			$dataJuroMoraTitulo = $value;
 		}
 
@@ -437,19 +468,39 @@ class Validador{
 	public function codigoTipoMulta( $value){
 		if( in_array( $value, [0,1,2])){ 
 			if( $value == 1 ){
+
+
 				if( !array_key_exists('valorMultaTitulo',$this->dadosTitulo)){
-					$this->erros['codigoTipoMulta'][] = sprintf("Campo obrigatório não informado [valorMultaTitulo]");
-				}							
+					$this->erros['valorMultaTitulo'][] = sprintf("Campo obrigatório não informado [valorMultaTitulo]");
+				}else{
+					$valorMultaTitulo = $this->dadosTitulo['valorMultaTitulo'];
+					if( $valorMultaTitulo <= 0 ){
+						$this->erros['valorMultaTitulo'][] = "Valor da multa não pode ser zero";
+					}
+				}	
+
+				if( !array_key_exists('dataMultaTitulo', $this->dadosTitulo)){
+					$this->erros['dataMultaTitulo'][] = sprintf("Campo obrigatório não informado [dataMultaTitulo]");
+				}						
 			}
 			else if( $value == 2){
 				if( !array_key_exists('percentualMultaTitulo', $this->dadosTitulo)){
-					$this->erros['codigoTipoMulta'][] = sprintf("Campo obrigatório não informado [percentualMultaTitulo]");								
+					$this->erros['percentualMultaTitulo'][] = sprintf("Campo obrigatório não informado [percentualMultaTitulo]");
+				}else{
+					$percentualMultaTitulo = $this->dadosTitulo['percentualMultaTitulo'];
+					if( $percentualMultaTitulo <= 0 ){
+						$this->erros['percentualMultaTitulo'][] = "Valor da multa não pode ser zero";
+					}
 				}
+
+				if( !array_key_exists('dataMultaTitulo', $this->dadosTitulo)){
+					$this->erros['dataMultaTitulo'][] = sprintf("Campo obrigatório não informado [dataMultaTitulo]");
+				}
+			}else if( $value == 0){
+
 			}
 
-			if( !array_key_exists('dataMultaTitulo', $this->dadosTitulo)){
-				$this->erros['codigoTipoMulta'][] = sprintf("Campo obrigatório não informado [dataMultaTitulo]");
-			}
+			
 
 			return true;
 		}else{
@@ -709,7 +760,8 @@ class Validador{
 			],
 
 			'codigoTipoTitulo' => [
-				'obrigatorio' => true 
+				'obrigatorio' => true  ,
+				'default' => '19'
 			],
 
 			'codigoTipoDescontoTitulo' => [
@@ -718,7 +770,8 @@ class Validador{
 			],
 
 			'dataDescontoTitulo' => [
-				'obrigatorio' => false 
+				'obrigatorio' => false ,
+				'default' => 'D'
 			],
 
 			'valorDescontoTitulo' => [
@@ -729,6 +782,11 @@ class Validador{
 			'percentualDescontoTitulo' => [
 				'obrigatorio' => false ,
 				'default' => '0.00'
+			],
+
+			'permitirRecebimentoParcial' => [
+				'obrigatorio' => true,
+				'default' => 'N'
 			],
 
 			'dataCadastroTitulo' => [
@@ -742,7 +800,8 @@ class Validador{
 			],
 
 			'dataJuroMoraTitulo' => [
-				'obrigatorio' => false 
+				'obrigatorio' => false ,
+				'default' => 'D+1'
 			],
 
 			'valorJuroMoraTitulo' => [

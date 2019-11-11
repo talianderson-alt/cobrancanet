@@ -68,64 +68,101 @@ class CobrancaNet{
 		return json_decode($result);
 	}
 
-	public function executar( $function ){
+	private $error = [];
 
+	public function executar( callable $callback ){
+		
 		$validator = new Validador(); 
 		$validator->setDadosTitulo($this->dadosTitulo); 
-		$validator->validar( function( $result  ) use (   $function  )  {
-			 
+		$resultValidate = $validator->validar(function( $result  ) { 
 
-			if( $result['type'] == 'success' ){
-				$token = $this->getToken(); 
-				if( is_object( $token ) ){
-					if( $token->type == 'success' ){
-						$this->initCurl();
-						curl_setopt($this->curl, CURLOPT_URL, $this->ambiente['registro']);
-						curl_setopt($this->curl, 
-							CURLOPT_POSTFIELDS, 
-							$result['data']
-						);
+			if( $result['type'] == 'success')
+				return $result['data'];
 
-						curl_setopt($this->curl, CURLOPT_HTTPHEADER, array(
-						    "Accept: application/json" ,
-						    "Authorization: Bearer " . $token->data->token  ,
-						    "Origin: ". "http://". $_SERVER["HTTP_HOST"]
-						)); 
-
-						$request = curl_exec($this->curl); 
-						   
-						$request = json_decode($request);
-
-						if( is_object( $request ) ){
-							if( isset( $request->data )){
-								$this->dadosBoleto = $request->data;
-							}
-							$function( $request);
-						}else{
-							$function( $request );
-						}
-					}else{
-						$function( (object) array(
-							'type' => 'error',
-							'message' => $token->msg,
-							'data' => null
-						));
-					}
-				}else{
-					$function( (object) array(
-						'type' => 'error',
-						'message' => 'Falha ao recuperar o token',
-						'data' => null
-					)); 
-				}
-			}else{
-				$function( (object) $result );
-			} 
+			$this->error = $result['erros'];
+			return null; 
 		});  
+   
+ 		if( $resultValidate != null )
+ 		{
+ 			$this->dadosTitulo = $resultValidate;
+ 			$tokenResponse = $this->getToken();
+
+ 			if( is_object($tokenResponse))
+ 			{
+ 				$type 		= $tokenResponse->type;
+ 				$msg 		= $tokenResponse->msg;
+ 				$token		= $tokenResponse->data->token;
+
+ 				if( $type != 'success')
+ 				{
+ 					$this->error[] = $msg;
+ 					return $callback($this);
+ 				}else{
+
+ 					// inicia a transmissão dos dados do boleto
+ 					$this->initCurl();
+
+ 					// configura URL para registro do titulo
+ 					curl_setopt($this->curl, 
+ 						CURLOPT_URL, 
+ 						$this->ambiente['registro']
+ 					);
+
+ 					// cabeçalho da requisição
+ 					curl_setopt($this->curl, CURLOPT_HTTPHEADER, array(
+					    "Accept: application/json" ,
+					    "Authorization: Bearer " . $token ,
+					    "Origin: ". "http://". $_SERVER["HTTP_HOST"]
+					)); 
+
+ 					// prepara os dados para serem lançados
+					curl_setopt($this->curl, 
+						CURLOPT_POSTFIELDS, 
+						$this->getDadosTitulo()
+					);
+
+
+					$requestResponse = curl_exec($this->curl); 
+					$requestResponse = json_decode($requestResponse);
+					curl_close($this->curl);
+
+					if( is_object($requestResponse))
+					{
+						$typeResponse = @$requestResponse->type;
+						$message	  = @$requestResponse->message;
+						$dados 	  	  = @$requestResponse->data;
+
+						if( $typeResponse != 'success'){
+							$this->error[] = $message;
+							return $callback($this);
+						}else{
+							$this->dadosTitulo = $dados;
+						} 
+					}else{
+						$this->error[] = "Falha na requisição da resposta";
+						return $callback($this);
+					}
+ 				}
+ 			}else{
+ 				$this->error[] = "Houve uma falha durante a recuperação do token";
+ 				return $callback($this);
+ 			}
+ 		} 
+
+		return $callback($this);
 	}
 
 
-	public function query( $dados ){
+	public function getErros(){
+		return $this->error;
+	}
+
+	public function getDadosTitulo(){
+		return $this->dadosTitulo;
+	}
+
+	public function query( $dados,  callable $callback ){
 		$token = $this->getToken();
 		if( $token->type == 'success' ){
 			$this->initCurl();
@@ -141,24 +178,33 @@ class CobrancaNet{
 			    "Origin: ". "http://". $_SERVER["HTTP_HOST"]
 			)); 
 
-			$request = curl_exec( $this->curl );
-			 
-			$request = json_decode($request);
-
+			$request = curl_exec( $this->curl ); 
+			$request = json_decode($request); 
 			curl_close($this->curl);
-			return $request;
+			//return $request;
+			if( is_object($request)){ 
+				if( $request->type != 'success'){
+					$this->error[] = $request->message;
+					return $callback($this);
+				}else{
+					$this->dadosTitulo = $request->data;
+					return $callback($this);
+				}
+			}else{
+				$this->error[] = "Falha na recuperação dos dados";
+				return $callback($this);
+			}
 		}else{
-			return null;
+			$this->error[] = "Falha na recuperação do token";
+			return $callback($this);
 		}
 	}
 
 
-	public function getPdfDocument( $callback ){
+	public function exportarBoletoPdf( callable $callback ){
 		$boletoPdf = new ExportPdf();
-		$boletoPdf->setDadosBoleto($this->dadosBoleto);
+		$boletoPdf->setDadosBoleto($this->dadosTitulo);
 		$boletoPdf->write();
 		return $callback( $boletoPdf );
-	}
-
-
+	} 
 }

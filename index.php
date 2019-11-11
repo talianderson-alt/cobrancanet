@@ -10,18 +10,18 @@ $user_id="APaQWlktYSkXNozkzDbFoZOuWLAoJpAKFbccMNXkgHIuwIfwMHBBhQxDdxsnmsysUbWhos
 	$secret ="YcUtdFFjXtWwJTNbcErxaODDFzNAuRySuSMYZRIwMfsWzGycLqamFdqKcELYXJqRdEqCXAyjfqGfyFHKwhxBLnMosZMPiDiMIZOfaNPFFWlEbsPYbMamBmbtMnKursIASXgslwzqSkuueKSFYssagUUsIfoBZxCrUilGekyyWssAELGdFzDlTZfdETedRhWnPHtusrsOlmPqyWTEUYqpxWSCqygJfDxwLrrEjkTWYjNXFhbbGRQEokHfio";
 $CobrancaNet = new CobrancaNet( $user_id, $secret);
 $CobrancaNet->setAmbiente(COBRANCANET_PRDC);
-$CobrancaNet->set('numeroDocumento', '014164')   
+$CobrancaNet
 ->set('codigoConvenio', '3330023NJD')
-->set('valorOriginalTitulo', '6545.65')
-->set('dataVencimentoTitulo','30.11.2019')
+->set('valorOriginalTitulo', '5.21')
+->set('dataVencimentoTitulo','30.12.2019')
 ->set('codigoTipoInscricaoPagador', '1')
-->set('nomePagador','ALANA PRISCILLA')
-->set('dataEmissaoTitulo', '06.11.2019')
-->set('codigoTipoTitulo', '1')
-->set('descricaoTitulo', 'CONTA DE INTERNET')
-->set('codigoTipoDescontoTitulo',0)
-->set('postarTituloCorreio', 1)
-->set('textoEnderecoPagador','Q 5 ON D') 
+->set('numeroInscricaoPagador', '03734431107')
+->set('nomePagador','JUNIOR SOUZA')
+//->set('dataEmissaoTitulo', '06.11.2019')
+//->set('codigoTipoTitulo', '1')
+//->set('descricaoTitulo', 'CONTA DE INTERNET') 
+//->set('postarTituloCorreio', 1)
+->set('textoEnderecoPagador','NUC. RURAL ALEX. GUSMÃO') 
 ->set('dataCadastroTitulo','01.11.2019')
 ->set('codigoTipoInscricaoAvalista','1')
 ->set('nomeAvalistaTitulo','TALIANDERSON')
@@ -31,40 +31,49 @@ $CobrancaNet->set('numeroDocumento', '014164')
 ->set('siglaUfPagador','DF')
 ->set('nomeMunicipioPagador','BRASILIA')
 ->set('nomeBairroPagador','BRAZLANDIA')
-->set('permitirRecebimentoParcial','0') 
-->set('dataDescontoTitulo','15.11.2019') 
-->set('valorDescontoTitulo','2.00')
-->set('percentualDescontoTitulo','2.00')
+//->set('codigoTipoDescontoTitulo',0)
+//->set('permitirRecebimentoParcial','0') 
+//->set('dataDescontoTitulo','D') 
+//->set('valorDescontoTitulo','2.00')
+//->set('percentualDescontoTitulo','2.00')
 ->set('codigoModalidadeTitulo','1')
-->set('codigoTipoMulta','2')
-->set('dataMultaTitulo','21.12.2019')
-->set('valorMultaTitulo','2.00')
-->set('percentualMultaTitulo','2.00')
-->set('codigoTipoJuroMoraTitulo','0')
-->set('dataJuroMoraTitulo','21.12.2019')
-->set('valorJuroMoraTitulo','2.00')
-->set('percentualJuroMoraTitulo','2.00')
-->set('numeroInscricaoPagador', '03734431107');
-/*
-$CobrancaNet->executar(function($result ) use ($CobrancaNet){ 
+->set('numeroDocumento', '014164');   
+//->set('codigoTipoMulta','1')
+//->set('dataMultaTitulo','21.12.2019')
+//->set('valorMultaTitulo','2.00')
+//->set('percentualMultaTitulo','2.00')
+//->set('codigoTipoJuroMoraTitulo','0')
+//->set('dataJuroMoraTitulo','21.12.2019')
+//->set('valorJuroMoraTitulo','2.00')
+//->set('percentualJuroMoraTitulo','2.00')
+ 
+$CobrancaNet->executar( function( $CobrancaNet ){
+	//var_dump($this->getDadosTitulo());
+	$erros = $CobrancaNet->getErros();
 
-	if( $result->type == 'success'){
-
-		//var_dump($result->data);
-		$CobrancaNet->getPdfDocument( function( $boletoPdf ){
-			//sleep(3);
-			$file = $boletoPdf->output('/dodc.pdf','S'); 
-			header("Content-type:application/pdf");
-			header("Content-Disposition:attachment;filename=test.pdf");
-			echo $file;
+	if( count( $erros ) == 0){
+		//var_dump($CobrancaNet->getDadosTitulo());
+		$CobrancaNet->exportarBoletoPdf( function( $pdf ){
+			$pdf->output();
 		});
+	}else{
+		echo "<pre>";
+		var_dump($erros);
 	}
-});*/
+});
+ 
+ /*
+$consulta = array(
+	'nossoNumero' => '15718790000000183'
+);
 
+$CobrancaNet->query( $consulta,  function($CobrancaNet){
 
-$result = $CobrancaNet->query([
-	'nossoNumero' => '15715930000000431',
-	'codigoDeBarras' => '00195808900006545650000001571593000000042217'
-]);
-
-var_dump($result);
+		if( count($CobrancaNet->getErros()) == 0){
+			echo "<pre>";
+			var_dump($CobrancaNet->getDadosTitulo());
+		}else{
+			var_dump($CobrancaNet->getErros());
+		}
+});
+*/
