@@ -69,8 +69,8 @@
 			</tr>
 			<tr>
 				
-				<td colspan="5"><div class="label">Lodal do pagamento</div>
-					<p class="valor textleft">Pagavel em qualquer banco até o vencimento</p>
+				<td colspan="5"><div class="label">Local do pagamento</div>
+					<p class="valor textleft">{header}</p>
 				</td>
 				<td width="150"><div class="label">Vencimento</div>
 					<p class="valor">
@@ -231,8 +231,8 @@
 			</tr>
 			<tr>
 				
-				<td colspan="5"><div class="label">Lodal do pagamento</div>
-					<p class="valor textleft">Pagavel em qualquer banco até o vencimento</p>
+				<td colspan="5"><div class="label">Local do pagamento</div>
+					<p class="valor textleft">{header}</p>
 				</td>
 				<td width="150"><div class="label">Vencimento</div>
 					<p class="valor">

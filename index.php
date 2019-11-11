@@ -7,12 +7,12 @@ use CobrancaNet\Exportar\ExportPdf;
 
 session_start();
 $user_id="APaQWlktYSkXNozkzDbFoZOuWLAoJpAKFbccMNXkgHIuwIfwMHBBhQxDdxsnmsysUbWhosSUBbPxkwtxDuzkMwopthdgbcawDxerpxNqZeoJaiGeeFPqCEhwmLdNoEKrBokqmziLdYUEGcjlizdlDL";
-	$secret ="YcUtdFFjXtWwJTNbcErxaODDFzNAuRySuSMYZRIwMfsWzGycLqamFdqKcELYXJqRdEqCXAyjfqGfyFHKwhxBLnMosZMPiDiMIZOfaNPFFWlEbsPYbMamBmbtMnKursIASXgslwzqSkuueKSFYssagUUsIfoBZxCrUilGekyyWssAELGdFzDlTZfdETedRhWnPHtusrsOlmPqyWTEUYqpxWSCqygJfDxwLrrEjkTWYjNXFhbbGRQEokHfio";
+	$secret ="YcUtdFFjXtWwJTNbcErxaODDFzNAuRySuSMYZRIwMfsWzGycLqamFdqKcELYXJqRdEqCXAyjfqGfyFHKwhxBLnMosZMPiDiMIZOfaNPFFWlEbsPYbMamBmbtMnKursIASXgslwzqSkuueKSFYssagUUsIfoBZxCrUilGekyyWssAELGdFzDlTZfdETedRh";
 $CobrancaNet = new CobrancaNet( $user_id, $secret);
 $CobrancaNet->setAmbiente(COBRANCANET_PRDC);
 $CobrancaNet
-->set('codigoConvenio', '3330023NJD')
-->set('valorOriginalTitulo', '5.21')
+->set('codigoConvenio', 'D144113479')
+->set('valorOriginalTitulo', '625.21')
 ->set('dataVencimentoTitulo','30.12.2019')
 ->set('codigoTipoInscricaoPagador', '1')
 ->set('numeroInscricaoPagador', '03734431107')
