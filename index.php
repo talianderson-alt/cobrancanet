@@ -10,7 +10,7 @@ session_start();
 $CobrancaNet = new CobrancaNet( COBRANCANET_USER_ID, COBRANCANET_SECRET);
 $CobrancaNet->setAmbiente(COBRANCANET_PRDC);
 $CobrancaNet
-->set('codigoConvenio', 'D144113479')
+->set('codigoConvenio', '3330023NJD')
 ->set('valorOriginalTitulo', '625.21')
 ->set('dataVencimentoTitulo','30.12.2019')
 ->set('codigoTipoInscricaoPagador', '1')
@@ -21,7 +21,7 @@ $CobrancaNet
 //->set('descricaoTitulo', 'CONTA DE INTERNET') 
 //->set('postarTituloCorreio', 1)
 ->set('textoEnderecoPagador','NUC. RURAL ALEX. GUSMÃO') 
-->set('dataCadastroTitulo','01.11.2019')
+//->set('dataCadastroTitulo','01.11.2019')
 ->set('codigoTipoInscricaoAvalista','1')
 ->set('nomeAvalistaTitulo','TALIANDERSON')
 ->set('numeroInscricaoAvalista','03734431107') 
@@ -34,9 +34,9 @@ $CobrancaNet
 //->set('permitirRecebimentoParcial','0') 
 //->set('dataDescontoTitulo','D') 
 //->set('valorDescontoTitulo','2.00')
-//->set('percentualDescontoTitulo','2.00')
+->set('percentualDescontoTitulo','2.00')
 ->set('codigoModalidadeTitulo','1')
-->set('numeroDocumento', '014164');   
+->set('numeroDocumento', '03314164')  
 //->set('codigoTipoMulta','1')
 //->set('dataMultaTitulo','21.12.2019')
 //->set('valorMultaTitulo','2.00')
@@ -45,6 +45,7 @@ $CobrancaNet
 //->set('dataJuroMoraTitulo','21.12.2019')
 //->set('valorJuroMoraTitulo','2.00')
 //->set('percentualJuroMoraTitulo','2.00')
+;
  
 $CobrancaNet->executar( function( $CobrancaNet ){
 	//var_dump($this->getDadosTitulo());

@@ -67,7 +67,7 @@ class Validador{
 		}
 
 		if( $codigoTipoInscricaoPagador == 2){
-			if(!$this->Utils->valida_cnpj($value)){
+			if(!$this->valida_cnpj($value)){
 				$this->erros['numeroInscricaoPagador'][] = "CNPJ inválido";
 				return false;
 			}
@@ -141,9 +141,32 @@ class Validador{
 	}
 
 	public function codigoTipoInscricaoAvalista($value){
-		if(!in_array( $value, [0,1,2])){
+
+
+		if(!in_array( $value, [1,2])){
 			$this->erros['codigoTipoInscricaoAvalista'][] = "Valores permitidos 1 - CPF, 2 - CNPJ";
 			return false;
+		}else{
+
+			// avalista pessoa física
+			if( $value == 1){
+
+			}
+			// avalista pessoa júridica
+			else{
+
+			}		
+
+			if( !array_key_exists('nomeAvalistaTitulo', $this->dadosTitulo)){
+				$this->erros['nomeAvalistaTitulo'][] = "O campo [nomeAvalistaTitulo] deve ser informado";
+				return false;
+			}else{
+				$nomeAvalistaTitulo = $this->dadosTitulo['nomeAvalistaTitulo'];
+				if( trim($nomeAvalistaTitulo) == ""){
+					$this->erros['nomeAvalistaTitulo'][] = "O campo [nomeAvalistaTitulo] deve ser informado";
+					return false;
+				}
+			}
 		}
 
 		return true;
@@ -638,6 +661,14 @@ class Validador{
 		return true;
 	}
 
+	public function codigoAceiteTitulo( $value ){
+		if( !in_array( $value, ['S','N'])){
+			$this->erros['codigoAceiteTitulo'][] = "Valor inválido. Aceitos S - Sim, N - Não";
+			return false;
+		}
+		return true;
+	}
+
 	public function setDadosTitulo( array $itens = []){  
 		$this->dadosTitulo = $this->setDefaultValues($itens); 
 	}
@@ -674,7 +705,7 @@ class Validador{
 
 		$result = [
 			'type' => $type,
-			'erros' => $this->erros,
+			'message' => $this->erros,
 			'validacao' => 'local' 
 		];
 
@@ -774,6 +805,10 @@ class Validador{
 				'default' => 'D'
 			],
 
+			'codigoAceiteTitulo' => [
+				'obrigatorio' => true 
+			],
+
 			'valorDescontoTitulo' => [
 				'obrigatorio' => false,
 				'default' => '0.00'
@@ -809,9 +844,17 @@ class Validador{
 				'default' => '0.00'
 			],
 
+			'codigoModalidadeTitulo' => [
+				'obrigatorio' => true
+			],
+
 			'percentualJuroMoraTitulo' => [
 				'obrigatorio' => false ,
 				'default' => '0.00'
+			],
+
+			'numeroDocumento' => [
+				'obrigatorio' => true
 			],
 
 			'codigoTipoMulta' => [
@@ -835,8 +878,7 @@ class Validador{
 			],
 
 			'nomeAvalistaTitulo' => [
-				'obrigatorio' => false,
-				'default' => 'TESTE'
+				'obrigatorio' => false 
 			],
 
 			'nomePagador' => [

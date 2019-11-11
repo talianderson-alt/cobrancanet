@@ -14,8 +14,21 @@ define("COBRANCANET_HMLG", array(
 	'retorno' => 'http://boleto.net/auth/retorno'
 ));
 
-define("COBRANCANET_USER_ID", "APaQWlktYSkXNozkzDbFoZOuWLAoJpAKFbccMNXkgHIuwIfwMHBBhQxDdxsnmsysUbWhosSUBbPxkwtxDuzkMwopthdgbcawDxerpxNqZeoJaiGeeFPqCEhwmLdNoEKrBokqmziLdYUEGcjlizdlDL");
+// user_id necessário para gerar o token das requisições
+define(
+	"COBRANCANET_USER_ID", 
+	"APaAGlktYSkXNozkzDbFoZOuWLAoJpAKFbccMNXkgHIuwIfwMHBBhQxDdxsnmsysUbWhosSUBbPxkwtxDuzkMwopthdgbcawDxerpxNqZeoJaiGeeFPqCEhwmLdNoEKrBokqmziLdYUEGcjlizdlDL"
+);
 
-define("COBRANCANET_SECRET", "YcUtdFFjXtWwJTNbcErxaODDFzNAuRySuSMYZRIwMfsWzGycLqamFdqKcELYXJqRdEqCXAyjfqGfyFHKwhxBLnMosZMPiDiMIZOfaNPFFWlEbsPYbMamBmbtMnKursIASXgslwzqSkuueKSFYssagUUsIfoBZxCrUilGekyyWssAELGdFzDlTZfdETedRh");
+// secret necessário para gerar o token das requisições
+define(
+	"COBRANCANET_SECRET", 
+	"YcUtdFFjXtWwJTNbcErxaODDFzNAuRySuSMYZRIwMfsWzGycLqamFdqKcELYXJqRdEqCXAyjfqGfyFHKwhxBLnMosZMPiDiMIZOfaNPFFWlEbsPYbMamBmbtMnKursIASXgslwzqSkuueKSFYssagUUsIfoBZxCrUilGekyyWssAELGdFzDlTZfdETeaRhWnPHtusrGFDSAqyWTEUYqpxWSCqygJfDxwLrrEjkTWYjNXFhbbGRQEokHfio"
+);
 
-define("COBRANCANET_TOKEN_RETORNO", "wJTNbcErxaODDFzNAuRySuSMYZRIw");
+// token de segurança que é enviado pelo CobrancaNet na hora de informar
+// para a aplicação do usuário de que existem débitos para serem baixados (isto é, pagos)
+define(
+	"COBRANCANET_TOKEN_RETORNO", 
+	"wJTNbcErxaODDFzNAuRySuSMYZRIw"
+);

@@ -79,7 +79,7 @@ class CobrancaNet{
 			if( $result['type'] == 'success')
 				return $result['data'];
 
-			$this->error = $result['erros'];
+			$this->error = $result['message'];
 			return null; 
 		});  
    
@@ -124,7 +124,9 @@ class CobrancaNet{
 
 
 					$requestResponse = curl_exec($this->curl); 
+
 					$requestResponse = json_decode($requestResponse);
+					//die(var_dump($requestResponse));
 					curl_close($this->curl);
 
 					if( is_object($requestResponse))
