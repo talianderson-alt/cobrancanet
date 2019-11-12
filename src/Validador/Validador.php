@@ -432,6 +432,15 @@ class Validador{
 	public function dataJuroMoraTitulo($value){
 		$dataVencimentoTitulo = self::getValue( $this->dadosTitulo , 'dataVencimentoTitulo', 'date');
 
+		if(array_key_exists('codigoTipoJuroMoraTitulo', $this->dadosTitulo)){
+			$codigoTipoJuroMoraTitulo = $this->dadosTitulo['codigoTipoJuroMoraTitulo'];
+			if( $codigoTipoJuroMoraTitulo == 0){
+				$this->dadosTitulo['dataJuroMoraTitulo'] = null;
+				return true;
+			}
+		}
+
+
 		if( $value == "D+1")
 		{
 			if(  $dataVencimentoTitulo != null ){
