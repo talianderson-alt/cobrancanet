@@ -189,7 +189,11 @@ class CobrancaNet{
 					$this->error[] = $request->message;
 					return $callback($this);
 				}else{
-					$this->dadosTitulo = $request->data;
+
+					if( count( $request->data ) > 0){
+						$this->dadosTitulo = $request->data;
+					}
+					
 					return $callback($this);
 				}
 			}else{

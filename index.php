@@ -10,7 +10,7 @@ session_start();
 $CobrancaNet = new CobrancaNet( COBRANCANET_USER_ID, COBRANCANET_SECRET);
 $CobrancaNet->setAmbiente(COBRANCANET_PRDC);
 $CobrancaNet
-->set('codigoConvenio', '3330023NJD')
+->set('codigoConvenio', 'A42F102S5F')
 ->set('valorOriginalTitulo', '625.21')
 ->set('dataVencimentoTitulo','30.12.2019')
 ->set('codigoTipoInscricaoPagador', '1')

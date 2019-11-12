@@ -15,8 +15,7 @@ class ExportPdf extends Html2Pdf{
 
 	public function __construct(){
 		parent::__construct('P','A4','fr',true,'UTF-8',array(0, 0, 0, 0));
-		$this->layout = file_get_contents("layouts/boleto.ctp");
-
+		$this->layout = file_get_contents( __DIR__ . "/../layouts/boleto.ctp"); 
 	}
 
 	public function write(){ 
@@ -28,8 +27,15 @@ class ExportPdf extends Html2Pdf{
 		$dataVencimento = new \DateTime( $dadosBoleto->dataVencimentoTitulo);
 		$dataCadastrotitulo = new \DateTime( $dadosBoleto->dataCadastroTitulo);
 
-		$this->layout = str_replace("{linhaDigitavel}", $dadosBoleto->linhaDigitavel, $this->layout);
-		$this->layout = str_replace("{numeroDocumento}", $dadosBoleto->numeroDocumento, $this->layout);
+		$this->layout = str_replace("{linhaDigitavel}", 
+			$dadosBoleto->linhaDigitavel, 
+			$this->layout
+		);
+
+		$this->layout = str_replace("{numeroDocumento}", 
+			$dadosBoleto->numeroDocumento, 
+			$this->layout
+		);
 		$this->layout = str_replace("{header}", $dadosConvenio->header, $this->layout);
 		$this->layout = str_replace("{dataProcessamento}", $dataCadastrotitulo->format('d/m/Y'), $this->layout);
 	    $this->layout = str_replace("{nomePagador}", $dadosBoleto->nomePagador, $this->layout);
