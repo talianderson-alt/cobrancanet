@@ -407,7 +407,7 @@ class Validador{
 			// juros do tipo valor
 			if( $value == 1 ){
 				if(!array_key_exists('valorJuroMoraTitulo', $this->dadosTitulo)){
-					$this->erros['dataCadastroTitulo'][] = sprintf("Campo obrigatório não informado [valorJuroMoraTitulo]");
+					$this->erros['valorJuroMoraTitulo'][] = sprintf("Campo obrigatório não informado [valorJuroMoraTitulo]");
 				}else{
 					$valorJuroMoraTitulo = $this->dadosTitulo['valorJuroMoraTitulo'];
 					if( $valorJuroMoraTitulo <= 0 ){

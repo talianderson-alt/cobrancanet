@@ -140,11 +140,13 @@ class CobrancaNet{
 						$message	  = @$requestResponse->message;
 						$dados 	  	  = @$requestResponse->data;
 
+
 						if( $typeResponse != 'success'){
 							$this->error[] = $message;
 							return $callback($this);
 						}else{
 							$this->dadosTitulo = $dados;
+							return $callback($this);
 						} 
 					}else{
 						$this->error[] = "Falha na requisição da resposta";
