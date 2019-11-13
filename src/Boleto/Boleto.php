@@ -355,6 +355,11 @@ class Boleto implements BoletoInterface{
                 $boleto->setBanco($banco);
                 break;
             }
+            case "756":{
+            	$boleto = new BoletoSicoob();
+            	$boleto->setBanco($banco);
+            	break;
+            }
             default:{
                 throw new \Exception('Banco não suportado.');
             }
