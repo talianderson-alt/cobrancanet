@@ -2,16 +2,16 @@
 require_once __DIR__ . "/vendor/autoload.php";
 
 use CobrancaNet\CobrancaNet;
-use CobrancaNet\Exportar\ExportPdf;
-  
+use CobrancaNet\Exportar\ExportPdf; 
+ 
 
 session_start();
  
 $CobrancaNet = new CobrancaNet( COBRANCANET_USER_ID, COBRANCANET_SECRET);
-$CobrancaNet->setAmbiente(COBRANCANET_PRDC);
+$CobrancaNet->setAmbiente(COBRANCANET_HMLG);
 $CobrancaNet
 ->set('codigoConvenio', 'A42F102S5F')
-->set('valorOriginalTitulo', '625.21')
+->set('valorOriginalTitulo', '25.21')
 ->set('dataVencimentoTitulo','30.12.2019')
 ->set('codigoTipoInscricaoPagador', '1')
 ->set('numeroInscricaoPagador', '03734431107')
@@ -20,7 +20,7 @@ $CobrancaNet
 //->set('codigoTipoTitulo', '1')
 //->set('descricaoTitulo', 'CONTA DE INTERNET') 
 //->set('postarTituloCorreio', 1)
-->set('textoEnderecoPagador','NUC. RURAL ALEX. GUSMÃOAAAAAA') 
+->set('textoEnderecoPagador','NUC. RURAL ALEX. GUSMÃO') 
 //->set('dataCadastroTitulo','01.11.2019')
 ->set('codigoTipoInscricaoAvalista','1')
 ->set('nomeAvalistaTitulo','TALIANDERSON')
@@ -37,15 +37,16 @@ $CobrancaNet
 ->set('percentualDescontoTitulo','2.00')
 ->set('codigoModalidadeTitulo','1')
 ->set('numeroDocumento', '03314164')  
-//->set('codigoTipoMulta','1')
-//->set('dataMultaTitulo','21.12.2019')
-//->set('valorMultaTitulo','2.00')
+->set('codigoTipoMulta','1')
+->set('dataMultaTitulo','01.01.2020')
+->set('valorMultaTitulo','2.00')
 //->set('percentualMultaTitulo','2.00')
-//->set('codigoTipoJuroMoraTitulo','0')
-//->set('dataJuroMoraTitulo','21.12.2019')
-//->set('valorJuroMoraTitulo','2.00')
+->set('codigoTipoJuroMoraTitulo','1')
+->set('dataJuroMoraTitulo','01.01.2020')
+->set('valorJuroMoraTitulo','2.00')
 //->set('percentualJuroMoraTitulo','2.00')
 ;
+ 
  
 $CobrancaNet->executar( function( $CobrancaNet ){
 	//var_dump($this->getDadosTitulo());
@@ -64,7 +65,7 @@ $CobrancaNet->executar( function( $CobrancaNet ){
  
  /*
 $consulta = array(
-	'nossoNumero' => '15718790000000183'
+	'nossoNumero' => '12016570000000025'
 );
 
 $CobrancaNet->query( $consulta,  function($CobrancaNet){
@@ -75,5 +76,4 @@ $CobrancaNet->query( $consulta,  function($CobrancaNet){
 		}else{
 			var_dump($CobrancaNet->getErros());
 		}
-});
-*/
+});*/
