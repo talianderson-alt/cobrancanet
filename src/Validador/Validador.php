@@ -549,8 +549,10 @@ class Validador{
 				if( !array_key_exists('dataMultaTitulo', $this->dadosTitulo)){
 					$this->erros['dataMultaTitulo'][] = sprintf("Campo obrigatório não informado [dataMultaTitulo]");
 				}
-			}else if( $value == 0){
-
+			}else{
+				unset( $this->dadosTitulo['dataMultaTitulo']);
+				unset( $this->dadosTitulo['valorMultaTitulo']);
+				unset( $this->dadosTitulo['percentualMultaTitulo']);
 			}
 
 			
@@ -563,8 +565,17 @@ class Validador{
 	}
 
 	public function dataMultaTitulo($value){
-		$dataVencimentoTitulo = self::getValue( $this->dadosTitulo , 'dataVencimentoTitulo', 'date');
 
+		if( array_key_exists('codigoTipoMulta', $this->dadosTitulo )){
+			$codigoTipoMulta = $this->dadosTitulo['codigoTipoMulta'];
+			if( $codigoTipoMulta == 0){
+				unset( $this->dadosTitulo['dataMultaTitulo']);
+				return true;
+			}
+		}
+
+
+		$dataVencimentoTitulo = self::getValue( $this->dadosTitulo , 'dataVencimentoTitulo', 'date'); 
 		$codigoTipoMulta = self::getValue($this->dadosTitulo, 'codigoTipoMulta');
 
 		if( !in_array($codigoTipoMulta, [0,1,2]) || $codigoTipoMulta == 0 ){
