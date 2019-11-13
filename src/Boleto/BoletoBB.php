@@ -1,5 +1,5 @@
 <?php
-namespace Boleto;
+namespace CobrancaNet\Boleto;
 
 class BoletoBB extends Boleto{
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace CobrancaNet\Boleto\Exceptions;
+namespace CobrancaNet\Boleto\Exception;
 
 class DataVencimentoEmBrancoException extends \Exception{
 
