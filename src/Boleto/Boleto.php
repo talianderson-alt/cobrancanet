@@ -381,10 +381,13 @@ class Boleto implements BoletoInterface{
             $convenio['convenio_dv']
         );
 
+
         $boleto->setContaCorrente(
             $convenio['conta_corrente'],
             $convenio['conta_corrente_dv']
         );
+
+        $boleto->setModalidade($debito['codigo_modalidade_titulo']);
          
         $boleto->setVencimento(new Date($debito['vencimento']));
         $boleto->setSequencial($debito['id_debito']);
