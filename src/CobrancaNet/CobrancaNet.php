@@ -29,7 +29,7 @@ class CobrancaNet{
  	}
 
  	public function setAmbiente( $ambiente ){ 
- 		if( in_array($ambiente, [COBRANCANET_PRDC,COBRANCANET_HMLG])){
+ 		if( in_array($ambiente, [COBRANCANET_PRDC,COBRANCANET_HMLG,LOCAL])){
  			$this->ambiente = $ambiente;
  			return true;
  		}
@@ -57,13 +57,17 @@ class CobrancaNet{
 
 	public function getToken(){
 		$this->initCurl(); 
+
 		curl_setopt($this->curl, CURLOPT_URL, $this->ambiente['token']);
+
 		curl_setopt($this->curl, CURLOPT_HTTPHEADER, array(
 			'Accept: application/json',
 			'Authorization: Basic ' . base64_encode( $this->user_id . ":" . $this->secret)
 		));
 
+
 		$result = curl_exec($this->curl);
+	 
 		curl_close( $this->curl );
 		return json_decode($result);
 	}
@@ -124,8 +128,9 @@ class CobrancaNet{
 
 
 					$requestResponse = curl_exec($this->curl); 
-
+					 
 					$requestResponse = json_decode($requestResponse);
+
 					//die(var_dump($requestResponse));
 					curl_close($this->curl);
 
@@ -181,6 +186,7 @@ class CobrancaNet{
 			)); 
 
 			$request = curl_exec( $this->curl ); 
+
 			$request = json_decode($request); 
 			curl_close($this->curl);
 			//return $request;

@@ -14,6 +14,13 @@ define("COBRANCANET_HMLG", array(
 	'retorno' => 'http://hmg.cobranca.net.br/auth/retorno'
 ));
 
+define("LOCAL", array(
+	'token' => 'http://localhost/apicobrancanet/auth/token',
+	'registro' => 'http://localhost/apicobrancanet/auth/validar',
+	'consulta' => 'http://localhost/apicobrancanet/auth/consultar',
+	'retorno' => 'http://localhost/apicobrancanet/auth/retorno'
+));
+
 // user_id necessário para gerar o token das requisições
 define(
 	"COBRANCANET_USER_ID", 
