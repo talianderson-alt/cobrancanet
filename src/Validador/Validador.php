@@ -420,7 +420,11 @@ class Validador{
 				if(!array_key_exists('dataJuroMoraTitulo',$this->dadosTitulo)){
 					$this->erros['dataJuroMoraTitulo'][] = sprintf("Campo obrigatório não informado [dataJuroMoraTitulo]");
 				}
-			} 
+			} else {
+				unset( $this->datosTitulo['dataJuroMoraTitulo']);
+				unset( $this->dadosTitulo['valorJuroMoraTitulo']);
+				unset( $this->dadosTitulo['percentualJuroMoraTitulo']);
+			}
 
 			return true;
 		}else{
@@ -435,7 +439,7 @@ class Validador{
 		if(array_key_exists('codigoTipoJuroMoraTitulo', $this->dadosTitulo)){
 			$codigoTipoJuroMoraTitulo = $this->dadosTitulo['codigoTipoJuroMoraTitulo'];
 			if( $codigoTipoJuroMoraTitulo == 0){
-				$this->dadosTitulo['dataJuroMoraTitulo'] = null;
+				unset($this->dadosTitulo['dataJuroMoraTitulo']);
 				return true;
 			}
 		}
@@ -848,13 +852,11 @@ class Validador{
 			],
 
 			'dataJuroMoraTitulo' => [
-				'obrigatorio' => false ,
-				'default' => 'D+1'
+				'obrigatorio' => false  
 			],
 
 			'valorJuroMoraTitulo' => [
-				'obrigatorio' => false ,
-				'default' => '0.00'
+				'obrigatorio' => false  
 			],
 
 			'codigoModalidadeTitulo' => [
@@ -862,8 +864,7 @@ class Validador{
 			],
 
 			'percentualJuroMoraTitulo' => [
-				'obrigatorio' => false ,
-				'default' => '0.00'
+				'obrigatorio' => false  
 			],
 
 			'numeroDocumento' => [
