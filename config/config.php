@@ -1,17 +1,17 @@
 <?php
 
 define("COBRANCANET_PRDC", array(
-	'token' => 'http://boleto.net/auth/token',
-	'registro' => 'http://boleto.net/auth/validar',
-	'consulta' => 'http://boleto.net/auth/consultar',
-	'retorno' => 'http://boleto.net/auth/retorno'
+	'token' => 'http://www.cobranca.net.br/auth/token',
+	'registro' => 'http://www.cobranca.net.br/auth/validar',
+	'consulta' => 'http://www.cobranca.net.br/auth/consultar',
+	'retorno' => 'http://www.cobranca.net.br/auth/retorno'
 ));
 
 define("COBRANCANET_HMLG", array(
-	'token' => 'http://boleto.net/auth/token',
-	'registro' => 'http://boleto.net/auth/validar',
-	'consulta' => 'http://boleto.net/auth/consultar',
-	'retorno' => 'http://boleto.net/auth/retorno'
+	'token' => 'http://hmg.cobranca.net.br/auth/token',
+	'registro' => 'http://hmg.cobranca.net.br/auth/validar',
+	'consulta' => 'http://hmg.cobranca.net.br/auth/consultar',
+	'retorno' => 'http://hmg.cobranca.net.br/auth/retorno'
 ));
 
 // user_id necessário para gerar o token das requisições
