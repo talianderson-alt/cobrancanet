@@ -22,7 +22,7 @@ class BoletoSicoob extends Boleto{
 	 	$moeda 			= $this->getMoeda();
 	 	$dv 			= "";
 	 	$fator_venc 	= $this->getFatorVencimento();
-	 	$valor 			= $this->getValor();
+	 	$valor  		= number_format($this->getValor(),2,'','');
 	 	$valor 			= str_pad( $valor, 10,'0', STR_PAD_LEFT);
 	 	$carteira 		= $this->getCarteira();
 	 	$cooperativa 	="4126";
