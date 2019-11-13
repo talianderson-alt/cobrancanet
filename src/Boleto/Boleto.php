@@ -98,6 +98,7 @@ class Boleto implements BoletoInterface{
 			$this->nossoNumeroDv = $dv;
 		}
 
+
 		return $this;
 	}
 
@@ -310,7 +311,7 @@ class Boleto implements BoletoInterface{
     public function getModalidade(){
     	return $this->modalidade;
     }
-    
+
 	private $valor;
 	private $vencimento;
 	private $carteira; 
