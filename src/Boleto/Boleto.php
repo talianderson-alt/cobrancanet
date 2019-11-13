@@ -302,6 +302,15 @@ class Boleto implements BoletoInterface{
     	return $this->conta_corrente_dv;
     }
 
+    public function setModalidade( $modalidade ){
+    	$this->modalidade = $modalidade;
+    	return $this;
+    }
+
+    public function getModalidade(){
+    	return $this->modalidade;
+    }
+    
 	private $valor;
 	private $vencimento;
 	private $carteira; 
@@ -322,6 +331,7 @@ class Boleto implements BoletoInterface{
 	private $sequencial;
 	private $conta_corrente;
 	private $conta_corrente_dv;
+	private $modalidade;
 
 	protected $nossoNumero;
 	protected $nossoNumeroDv;
