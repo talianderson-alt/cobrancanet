@@ -23,6 +23,7 @@ class Validador{
 	*/
 	public function dataVencimentoTitulo($value ){
 
+
 		 $dataAtual =   \DateTime::createFromFormat('Y-m-d',date('Y-m-d'));
 
 		 try{
@@ -57,6 +58,7 @@ class Validador{
 	}
 
 	public function numeroInscricaoPagador( $value){
+
 		$codigoTipoInscricaoPagador = @$this->dadosTitulo['codigoTipoInscricaoPagador'];
 		if( $codigoTipoInscricaoPagador == 1 )
 		{
@@ -245,7 +247,11 @@ class Validador{
 						$this->erros['percentualDescontoTitulo'][] = "O valor do desconto não pode ser zero";
 					}
 				}
-			} 
+			}else{
+				unset( $this->dadosTitulo['dataDescontoTitulo']);
+				unset( $this->dadosTitulo['valorDescontoTitulo']);
+				unset( $this->dadosTitulo['percentualDescontoTitulo']);
+			}
 
 			return true;
 		}else{
@@ -257,6 +263,13 @@ class Validador{
 
 
 	public function dataDescontoTitulo($value){
+
+		if( array_key_exists('codigoTipoDescontoTitulo', $this->dadosTitulo)){
+			$codigoTipoDescontoTitulo = $this->dadosTitulo['codigoTipoDescontoTitulo'];
+			if( $codigoTipoDescontoTitulo == 0)
+				return true;
+		}
+
 
 		if( $value == "D")
 		{
@@ -818,12 +831,7 @@ class Validador{
 			],
 
 			'dataDescontoTitulo' => [
-				'obrigatorio' => false ,
-				'default' => 'D'
-			],
-
-			'codigoAceiteTitulo' => [
-				'obrigatorio' => true 
+				'obrigatorio' => false 
 			],
 
 			'valorDescontoTitulo' => [
@@ -835,6 +843,10 @@ class Validador{
 				'obrigatorio' => false ,
 				'default' => '0.00'
 			],
+
+			'codigoAceiteTitulo' => [
+				'obrigatorio' => true 
+			], 
 
 			'permitirRecebimentoParcial' => [
 				'obrigatorio' => true,
