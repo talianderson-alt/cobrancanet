@@ -29,10 +29,11 @@ class CobrancaNet{
  	}
 
  	public function setAmbiente( $ambiente ){ 
- 		if( in_array($ambiente, [COBRANCANET_PRDC,COBRANCANET_HMLG,LOCAL])){
+ 		if( is_array( $ambiente )){
  			$this->ambiente = $ambiente;
  			return true;
  		}
+ 		
  		return false;
  	}
 
