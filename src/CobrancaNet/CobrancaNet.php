@@ -56,20 +56,15 @@ class CobrancaNet{
 	}
 
 	public function getToken(){
-		$this->initCurl(); 
-
-		curl_setopt($this->curl, CURLOPT_URL, $this->ambiente['token']);
-
+		$this->initCurl();  
+		curl_setopt($this->curl, CURLOPT_URL, $this->ambiente['token']); 
 		curl_setopt($this->curl, CURLOPT_HTTPHEADER, array(
 			'Accept: application/json',
 			'Connection: Keep-Alive',
 			'Content-Length: 0', 
 			'Authorization: Basic ' . base64_encode( $this->user_id . ":" . $this->secret)
-		));
-
-
-		$result = curl_exec($this->curl);
-	 
+		)); 
+		$result = curl_exec($this->curl); 
 		curl_close( $this->curl );
 		return json_decode($result);
 	}
