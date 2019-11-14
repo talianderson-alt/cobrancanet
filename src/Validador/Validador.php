@@ -579,7 +579,7 @@ class Validador{
 		$codigoTipoMulta = self::getValue($this->dadosTitulo, 'codigoTipoMulta');
 
 		if( !in_array($codigoTipoMulta, [0,1,2]) || $codigoTipoMulta == 0 ){
-			$this->dadosTitulo['dataMultaTitulo'] = null;
+			unset($this->dadosTitulo['dataMultaTitulo']);
 			return true;
 		}
 
