@@ -1,17 +1,17 @@
 <?php
 
 define("COBRANCANET_PRDC", array(
-	'token' => 'http://www.cobranca.net.br/auth/token',
-	'registro' => 'http://www.cobranca.net.br/auth/validar',
-	'consulta' => 'http://www.cobranca.net.br/auth/consultar',
-	'retorno' => 'http://www.cobranca.net.br/auth/retorno'
+	'token' => 'http://api.cobranca.net.br/auth/token',
+	'registro' => 'http://api.cobranca.net.br/auth/validar',
+	'consulta' => 'http://api.cobranca.net.br/auth/consultar',
+	'retorno' => 'http://api.cobranca.net.br/auth/retorno'
 ));
 
 define("COBRANCANET_HMLG", array(
-	'token' => 'http://hmg.cobranca.net.br/auth/token',
-	'registro' => 'http://hmg.cobranca.net.br/auth/validar',
-	'consulta' => 'http://hmg.cobranca.net.br/auth/consultar',
-	'retorno' => 'http://hmg.cobranca.net.br/auth/retorno'
+	'token' => 'http://api.hmg.cobranca.net.br/auth/token',
+	'registro' => 'http://api.hmg.cobranca.net.br/auth/validar',
+	'consulta' => 'http://api.hmg.cobranca.net.br/auth/consultar',
+	'retorno' => 'http://api.hmg.cobranca.net.br/auth/retorno'
 ));
 
 define("LOCAL", array(
