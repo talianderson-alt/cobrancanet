@@ -342,6 +342,10 @@ class Boleto implements BoletoInterface{
         $banco    = $convenio['banco'];
  
         switch($banco){
+            case "000":{
+                $boleto = new BoletoCobranca();
+                break;
+            }
             case "104":{
                 $boleto = new BoletoCaixa(); 
                 break;
