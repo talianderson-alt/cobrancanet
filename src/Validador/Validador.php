@@ -39,10 +39,10 @@ class Validador{
 		 	return false;
 		 }
   
-		 if( $dataVencimentoTitulo < $dataAtual){
+		/* if( $dataVencimentoTitulo < $dataAtual){
 		 	$this->erros['dataVencimentoTitulo'][] = $dataVencimentoTitulo->format('d.m.Y')." A data de vencimento do título não pode ser menor que a data atual";
 		 	return false;
-		 }
+		 }*/
 
 		 $this->dadosTitulo['dataVencimentoTitulo']  = $dataVencimentoTitulo;
 		 return true;

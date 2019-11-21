@@ -333,9 +333,29 @@ class Boleto implements BoletoInterface{
 	private $conta_corrente;
 	private $conta_corrente_dv;
 	private $modalidade;
+    private $cooperativa;
+    private $parcela;
 
 	protected $nossoNumero;
 	protected $nossoNumeroDv;
+
+    public function setCooperativa($cooperativa){
+        $this->cooperativa = $cooperativa;
+        return $this;
+    }
+
+    public function getCooperativa(){
+        return $this->cooperativa;
+    }
+
+    public function setParcela( $parcela ){
+        $this->parcela = $parcela;
+        return $this;
+    }
+
+    public function getParcela(){
+        return $this->parcela;
+    }
 
 	public static function createBoleto( $debito ){
         $convenio = $debito['convenio'];
@@ -346,6 +366,10 @@ class Boleto implements BoletoInterface{
                 $boleto = new BoletoCobranca();
                 break;
             }
+            case "070":{
+                $boleto = new BoletoBrb();
+                break;
+            }
             case "104":{
                 $boleto = new BoletoCaixa(); 
                 break;
@@ -353,14 +377,15 @@ class Boleto implements BoletoInterface{
             case "001":{
                 $boleto = new BoletoBB();
                 break;
-            }
-            
+            } 
             case "756":{
             	$boleto = new BoletoSicoob();
             	$boleto->setBanco($banco);
             	break;
             }
-            case ("033" || "353" || "008"):{
+            case "033":
+            case "353":
+            case "008":{
                 $boleto = new BoletoSantander();
                 $boleto->setBanco($banco);
                 break;
@@ -371,6 +396,8 @@ class Boleto implements BoletoInterface{
         }
 
         $boleto->setValor( $debito['valor'] );
+        $boleto->setParcela( $debito['parcela']);
+
         $boleto->setCedente( 
             $convenio['cedente'],
             $convenio['cedente_dv']
@@ -393,6 +420,13 @@ class Boleto implements BoletoInterface{
 
         $boleto->setModalidade($debito['codigo_modalidade_titulo']);
          
+        if( $boleto->getBanco() == '756')
+        {
+            $boleto->setModalidade( $convenio['modalidade'] );
+        }
+
+        $boleto->setCooperativa( $convenio['cooperativa']);
+
         $boleto->setVencimento(new Date($debito['vencimento']));
         $boleto->setSequencial($debito['id_debito']);
         $boleto->setCarteira($convenio['carteira']);
